@@ -6,7 +6,7 @@ class ProductItem extends StatelessWidget {
   final String title;
   final String imageUrl;
 
-  ProductItem({
+  const ProductItem({
     required this.id,
     required this.title,
     required this.imageUrl,
@@ -17,6 +17,29 @@ class ProductItem extends StatelessWidget {
     return GridTile(
       child: Image.network(
         imageUrl,
+        fit: BoxFit.cover,
+      ),
+      footer: GridTileBar(
+        backgroundColor: Colors.black54,
+        leading: IconButton(
+          icon: Icon(
+            Icons.favorite,
+          ),
+          onPressed: () {},
+        ),
+        title: Text(
+          title,
+          style: TextStyle(
+            fontSize: 12,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        trailing: IconButton(
+          icon: Icon(
+            Icons.shopping_cart,
+          ),
+          onPressed: () {},
+        ),
       ),
     );
   }
