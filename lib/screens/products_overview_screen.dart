@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/Product.dart';
+import '../widgets/product_item.dart';
 
 ///  Created by mac on 20/11/22.
 class ProductsOverviewScreen extends StatelessWidget {
@@ -43,12 +44,18 @@ class ProductsOverviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Shop'),
+        title: const Text(
+          'My Shop',
+        ),
       ),
       body: GridView.builder(
         padding: const EdgeInsets.all(10.0),
         itemCount: loadedProduct.length,
-        itemBuilder: (ctx, i) => Container(),
+        itemBuilder: (ctx, i) => ProductItem(
+          id: loadedProduct[i].id,
+          title: loadedProduct[i].title,
+          imageUrl: loadedProduct[i].imageUrl,
+        ),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 3 / 2,
