@@ -1,0 +1,23 @@
+import 'package:flutter/material.dart';
+
+///  Created by mac on 20/11/22.
+class ProductItem extends StatelessWidget {
+  final String id;
+  final String title;
+  final String imageUrl;
+
+  ProductItem({
+    required this.id,
+    required this.title,
+    required this.imageUrl,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GridTile(
+      child: Image.network(
+        imageUrl,
+      ),
+    );
+  }
+}
