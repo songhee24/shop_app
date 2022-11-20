@@ -41,6 +41,16 @@ class ProductsOverviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('My Shop'),
+      ),
+      body: GridView.builder(
+        padding: const EdgeInsets.all(10.0),
+        itemCount: loadedProduct.length,
+        itemBuilder: (ctx, i) => Container(),
+        gridDelegate: gridDelegate,
+      ),
+    );
   }
 }
