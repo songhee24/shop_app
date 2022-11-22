@@ -3,6 +3,8 @@ import 'package:shop_app/widgets/products_grid.dart';
 
 ///  Created by mac on 20/11/22.
 class ProductsOverviewScreen extends StatelessWidget {
+  const ProductsOverviewScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,7 +13,7 @@ class ProductsOverviewScreen extends StatelessWidget {
           'My Shop',
         ),
       ),
-      body: ProductsGrid(),
+      body: const ProductsGrid(),
     );
   }
 }
