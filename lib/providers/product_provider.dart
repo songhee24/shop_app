@@ -1,4 +1,6 @@
-class ProductProvider {
+import 'package:flutter/cupertino.dart';
+
+class ProductProvider with ChangeNotifier {
   final String id;
   final String description;
   final String title;
@@ -14,4 +16,9 @@ class ProductProvider {
     required this.imageUrl,
     required this.isFavorite,
   });
+
+  void toggleFavoriteStatus() {
+    isFavorite = !isFavorite;
+    notifyListeners();
+  }
 }
