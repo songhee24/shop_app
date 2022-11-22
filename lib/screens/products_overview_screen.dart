@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/widgets/products_grid.dart';
 
 import '../models/Product.dart';
-import '../widgets/product_item.dart';
 
 ///  Created by mac on 20/11/22.
 class ProductsOverviewScreen extends StatelessWidget {
@@ -48,21 +48,7 @@ class ProductsOverviewScreen extends StatelessWidget {
           'My Shop',
         ),
       ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(10.0),
-        itemCount: loadedProduct.length,
-        itemBuilder: (ctx, i) => ProductItem(
-          id: loadedProduct[i].id,
-          title: loadedProduct[i].title,
-          imageUrl: loadedProduct[i].imageUrl,
-        ),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 3 / 2,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-        ),
-      ),
+      body: ProductsGrid(loadedProduct: loadedProduct),
     );
   }
 }
