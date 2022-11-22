@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/models/Product.dart';
+import 'package:shop_app/providers/products_provider.dart';
 
 ///  Created by mac on 22/11/22.
 class ProductDetailScreen extends StatelessWidget {
@@ -13,9 +16,13 @@ class ProductDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final String productId =
         ModalRoute.of(context)?.settings.arguments as String;
+    final Product selectedItem =
+        Provider.of<ProductsProvider>(context).items.firstWhere(
+              (product) => product.id == productId,
+            );
     return Scaffold(
       appBar: AppBar(
-        title: Text('title'),
+        title: Text(selectedItem.title),
       ),
     );
   }
