@@ -35,10 +35,12 @@ class MyApp extends StatelessWidget {
             secondary: Colors.deepOrange,
           ),
           textTheme: TextTheme(
-            headline1: TextStyle(
-              color: Colors.deepPurple[50],
-            ),
-          ),
+              headline1: TextStyle(
+                color: Colors.deepPurple[50],
+              ),
+              headline2: TextStyle(
+                color: Colors.lime[50],
+              )),
         ),
         home: ProductsOverviewScreen(),
         routes: {
