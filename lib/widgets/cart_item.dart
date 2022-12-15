@@ -16,55 +16,47 @@ class CartItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      key: ValueKey(id),
-      background: Container(
-        color: Theme.of(context).colorScheme.error,
-        alignment: Alignment.centerRight,
-        padding: const EdgeInsets.only(
-          right: 20,
-        ),
-        margin: const EdgeInsets.symmetric(
-          horizontal: 15,
-          vertical: 4,
-        ),
-        child: const Icon(
-          Icons.delete,
-          color: Colors.white,
-        ),
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 16,
+        right: 16,
       ),
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 15,
-          vertical: 4,
+      child: Dismissible(
+        key: ValueKey(id),
+        background: Container(
+          padding: const EdgeInsets.only(
+            right: 16,
+          ),
+          color: Theme.of(context).colorScheme.error,
+          alignment: Alignment.centerRight,
+          child: const Icon(
+            Icons.delete,
+            color: Colors.white,
+          ),
         ),
         child: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(
-              8,
-            ),
-            child: ListTile(
-              leading: CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                child: FittedBox(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 3,
-                      vertical: 2,
-                    ),
-                    child: Text(
-                      '\$${price}',
-                      style: TextStyle(
-                        color: Theme.of(context).textTheme.headline2?.color,
-                      ),
+          margin: const EdgeInsets.all(0),
+          child: ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              child: FittedBox(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 3,
+                    vertical: 2,
+                  ),
+                  child: Text(
+                    '\$${price}',
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.headline2?.color,
                     ),
                   ),
                 ),
               ),
-              title: Text(title),
-              subtitle: Text('Total: \$${price * quantity}'),
-              trailing: Text('$quantity x'),
             ),
+            title: Text(title),
+            subtitle: Text('Total: \$${price * quantity}'),
+            trailing: Text('$quantity x'),
           ),
         ),
       ),
