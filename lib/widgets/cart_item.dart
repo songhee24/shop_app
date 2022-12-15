@@ -20,37 +20,51 @@ class CartItem extends StatelessWidget {
       key: ValueKey(id),
       background: Container(
         color: Theme.of(context).colorScheme.error,
-      ),
-      child: Card(
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.only(
+          right: 20,
+        ),
         margin: const EdgeInsets.symmetric(
           horizontal: 15,
           vertical: 4,
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(
-            8,
-          ),
-          child: ListTile(
-            leading: CircleAvatar(
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              child: FittedBox(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 3,
-                    vertical: 2,
-                  ),
-                  child: Text(
-                    '\$${price}',
-                    style: TextStyle(
-                      color: Theme.of(context).textTheme.headline2?.color,
+        child: const Icon(
+          Icons.delete,
+          color: Colors.white,
+        ),
+      ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 15,
+          vertical: 4,
+        ),
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(
+              8,
+            ),
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                child: FittedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 3,
+                      vertical: 2,
+                    ),
+                    child: Text(
+                      '\$${price}',
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.headline2?.color,
+                      ),
                     ),
                   ),
                 ),
               ),
+              title: Text(title),
+              subtitle: Text('Total: \$${price * quantity}'),
+              trailing: Text('$quantity x'),
             ),
-            title: Text(title),
-            subtitle: Text('Total: \$${price * quantity}'),
-            trailing: Text('$quantity x'),
           ),
         ),
       ),
