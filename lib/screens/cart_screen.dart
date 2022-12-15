@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/cart_provider.dart';
-import '../widgets/cart_item.dart' as ci;
+import '../providers/cart_provider.dart' show CartProvider;
+import '../widgets/cart_item.dart';
 
 ///  Created by mac on 15/12/22.
 class CartScreen extends StatelessWidget {
