@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/cart_provider.dart';
 
 ///  Created by mac on 15/12/22.
 class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    CartProvider cart = Provider.of<CartProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Your Cart'),
@@ -16,17 +20,19 @@ class CartScreen extends StatelessWidget {
               padding: EdgeInsets.all(8),
               child: Row(
                 children: <Widget>[
-                  Text(
+                  const Text(
                     'Total',
                     style: TextStyle(
                       fontSize: 12,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Chip(
-                    label: Text('1'),
+                    label: Text(
+                      cart.totalAmount.toString(),
+                    ),
                   )
                 ],
               ),
