@@ -65,7 +65,6 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
             ) =>
                 Badge(
               value: cartData.itemCount.toString(),
-              color: Colors.lightBlue,
               child: IconButtonChildFromOutside!,
             ),
             child: IconButton(
