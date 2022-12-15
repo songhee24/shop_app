@@ -12,14 +12,15 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ProductProvider product = Provider.of<ProductProvider>(context);
-    return Consumer<ProductProvider>(
-      builder: (context, product, child) => ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: GridTile(
-          footer: GridTileBar(
-            backgroundColor: Colors.black54,
-            leading: IconButton(
+    ProductProvider product =
+        Provider.of<ProductProvider>(context, listen: false);
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: GridTile(
+        footer: GridTileBar(
+          backgroundColor: Colors.black54,
+          leading: Consumer<ProductProvider>(
+            builder: (context, product, child) => IconButton(
               icon: Icon(
                 product.isFavorite ? Icons.favorite : Icons.favorite_border,
                 color: Theme.of(context).colorScheme.secondary,
@@ -28,32 +29,32 @@ class ProductItem extends StatelessWidget {
                 product.toggleFavoriteStatus();
               },
             ),
-            title: Text(
-              product.title,
-              style: const TextStyle(
-                fontSize: 12,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            trailing: IconButton(
-              icon: Icon(
-                Icons.shopping_cart,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-              onPressed: () {},
-            ),
           ),
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).pushNamed(
-                ProductDetailScreen.routeName,
-                arguments: product.id,
-              );
-            },
-            child: Image.network(
-              product.imageUrl,
-              fit: BoxFit.cover,
+          title: Text(
+            product.title,
+            style: const TextStyle(
+              fontSize: 12,
             ),
+            textAlign: TextAlign.center,
+          ),
+          trailing: IconButton(
+            icon: Icon(
+              Icons.shopping_cart,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+            onPressed: () {},
+          ),
+        ),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              ProductDetailScreen.routeName,
+              arguments: product.id,
+            );
+          },
+          child: Image.network(
+            product.imageUrl,
+            fit: BoxFit.cover,
           ),
         ),
       ),
