@@ -23,11 +23,12 @@ class CartScreen extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(8),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   const Text(
                     'Total',
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 14,
                     ),
                   ),
                   const SizedBox(
