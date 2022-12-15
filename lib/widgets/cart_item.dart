@@ -16,36 +16,42 @@ class CartItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(
-        horizontal: 15,
-        vertical: 4,
+    return Dismissible(
+      key: ValueKey(id),
+      background: Container(
+        color: Theme.of(context).colorScheme.error,
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(
-          8,
+      child: Card(
+        margin: const EdgeInsets.symmetric(
+          horizontal: 15,
+          vertical: 4,
         ),
-        child: ListTile(
-          leading: CircleAvatar(
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            child: FittedBox(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 3,
-                  vertical: 2,
-                ),
-                child: Text(
-                  '\$${price}',
-                  style: TextStyle(
-                    color: Theme.of(context).textTheme.headline2?.color,
+        child: Padding(
+          padding: const EdgeInsets.all(
+            8,
+          ),
+          child: ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              child: FittedBox(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 3,
+                    vertical: 2,
+                  ),
+                  child: Text(
+                    '\$${price}',
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.headline2?.color,
+                    ),
                   ),
                 ),
               ),
             ),
+            title: Text(title),
+            subtitle: Text('Total: \$${price * quantity}'),
+            trailing: Text('$quantity x'),
           ),
-          title: Text(title),
-          subtitle: Text('Total: \$${price * quantity}'),
-          trailing: Text('$quantity x'),
         ),
       ),
     );
