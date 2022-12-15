@@ -21,42 +21,46 @@ class CartItem extends StatelessWidget {
         left: 16,
         right: 16,
       ),
-      child: Dismissible(
-        key: ValueKey(id),
-        background: Container(
-          padding: const EdgeInsets.only(
-            right: 16,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Dismissible(
+          key: ValueKey(id),
+          background: Container(
+            padding: const EdgeInsets.only(
+              right: 16,
+            ),
+            color: Theme.of(context).colorScheme.error,
+            alignment: Alignment.centerRight,
+            child: const Icon(
+              Icons.delete,
+              color: Colors.white,
+            ),
           ),
-          color: Theme.of(context).colorScheme.error,
-          alignment: Alignment.centerRight,
-          child: const Icon(
-            Icons.delete,
-            color: Colors.white,
-          ),
-        ),
-        child: Card(
-          margin: const EdgeInsets.all(0),
-          child: ListTile(
-            leading: CircleAvatar(
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              child: FittedBox(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 3,
-                    vertical: 2,
-                  ),
-                  child: Text(
-                    '\$${price}',
-                    style: TextStyle(
-                      color: Theme.of(context).textTheme.headline2?.color,
+          child: Card(
+            elevation: 0,
+            margin: const EdgeInsets.all(0),
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                child: FittedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 3,
+                      vertical: 2,
+                    ),
+                    child: Text(
+                      '\$${price}',
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.headline2?.color,
+                      ),
                     ),
                   ),
                 ),
               ),
+              title: Text(title),
+              subtitle: Text('Total: \$${price * quantity}'),
+              trailing: Text('$quantity x'),
             ),
-            title: Text(title),
-            subtitle: Text('Total: \$${price * quantity}'),
-            trailing: Text('$quantity x'),
           ),
         ),
       ),
