@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'product_provider.dart';
 
 class ProductsProvider with ChangeNotifier {
-  List<ProductProvider> _items = [
+  final List<ProductProvider> _items = [
     ProductProvider(
         id: 'p1',
         title: 'Red Shirt',
@@ -38,8 +38,23 @@ class ProductsProvider with ChangeNotifier {
         isFavorite: false),
   ];
 
+  var _showFavoritesOnly = false;
+
   List<ProductProvider> get items {
+    if (_showFavoritesOnly) {
+      return _items.where((prodItem) => prodItem.isFavorite).toList();
+    }
     return [..._items];
+  }
+
+  void showFavoritesOnly() {
+    _showFavoritesOnly = true;
+    notifyListeners();
+  }
+
+  void showAll() {
+    _showFavoritesOnly = false;
+    notifyListeners();
   }
 
   ProductProvider findById(String id) {
