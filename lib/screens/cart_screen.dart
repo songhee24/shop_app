@@ -5,6 +5,10 @@ import '../providers/cart_provider.dart';
 
 ///  Created by mac on 15/12/22.
 class CartScreen extends StatelessWidget {
+  static const routeName = '/cart';
+
+  const CartScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     CartProvider cart = Provider.of<CartProvider>(context);
@@ -32,7 +36,11 @@ class CartScreen extends StatelessWidget {
                   Chip(
                     label: Text(
                       '\$${cart.totalAmount}',
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.headline1?.color,
+                      ),
                     ),
+                    backgroundColor: Theme.of(context).colorScheme.primary,
                   )
                 ],
               ),
