@@ -31,12 +31,14 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         actions: <Widget>[
           PopupMenuButton(
             onSelected: (FilterOptions selectedValue) {
-              if (selectedValue == FilterOptions.Favorites) {
-                _showOnlyFavorites = true;
-              } else {
-                _showOnlyFavorites = false;
-                // productsContainer.showAll();
-              }
+              setState(() {
+                if (selectedValue == FilterOptions.Favorites) {
+                  _showOnlyFavorites = true;
+                } else {
+                  _showOnlyFavorites = false;
+                  // productsContainer.showAll();
+                }
+              });
             },
             icon: const Icon(
               Icons.more_vert,
