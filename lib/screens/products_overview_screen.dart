@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../providers/products_provider.dart';
 import '../widgets/products_grid.dart';
 
 enum FilterOptions {
@@ -10,13 +8,20 @@ enum FilterOptions {
 }
 
 ///  Created by mac on 20/11/22.
-class ProductsOverviewScreen extends StatelessWidget {
+class ProductsOverviewScreen extends StatefulWidget {
   const ProductsOverviewScreen({super.key});
 
   @override
+  State<ProductsOverviewScreen> createState() => _ProductsOverviewScreenState();
+}
+
+class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
+  bool _showOnlyFavorites = false;
+
+  @override
   Widget build(BuildContext context) {
-    final productsContainer =
-        Provider.of<ProductsProvider>(context, listen: false);
+    // final productsContainer =
+    //     Provider.of<ProductsProvider>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -27,9 +32,10 @@ class ProductsOverviewScreen extends StatelessWidget {
           PopupMenuButton(
             onSelected: (FilterOptions selectedValue) {
               if (selectedValue == FilterOptions.Favorites) {
-                productsContainer.showFavoritesOnly();
+                _showOnlyFavorites = true;
               } else {
-                productsContainer.showAll();
+                _showOnlyFavorites = false;
+                // productsContainer.showAll();
               }
             },
             icon: const Icon(
@@ -48,7 +54,9 @@ class ProductsOverviewScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: const ProductsGrid(),
+      body: ProductsGrid(
+        showFavorites: _showOnlyFavorites,
+      ),
     );
   }
 }

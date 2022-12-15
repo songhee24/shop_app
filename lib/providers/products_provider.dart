@@ -38,24 +38,24 @@ class ProductsProvider with ChangeNotifier {
         isFavorite: false),
   ];
 
-  var _showFavoritesOnly = false;
+  // var _showFavoritesOnly = false;
 
   List<ProductProvider> get items {
-    if (_showFavoritesOnly) {
-      return _items.where((prodItem) => prodItem.isFavorite).toList();
-    }
+    // if (_showFavoritesOnly) {
+    //   return _items.where((prodItem) => prodItem.isFavorite).toList();
+    // }
     return [..._items];
   }
 
-  void showFavoritesOnly() {
-    _showFavoritesOnly = true;
-    notifyListeners();
-  }
+  // void showFavoritesOnly() {
+  //   _showFavoritesOnly = true;
+  //   notifyListeners();
+  // }
 
-  void showAll() {
-    _showFavoritesOnly = false;
-    notifyListeners();
-  }
+  // void showAll() {
+  //   _showFavoritesOnly = false;
+  //   notifyListeners();
+  // }
 
   ProductProvider findById(String id) {
     return _items.firstWhere(

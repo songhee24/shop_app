@@ -5,8 +5,11 @@ import '../providers/products_provider.dart';
 import 'product_item.dart';
 
 class ProductsGrid extends StatelessWidget {
+  final bool? showFavorites;
+
   const ProductsGrid({
     Key? key,
+    required this.showFavorites,
   }) : super(key: key);
 
   @override
