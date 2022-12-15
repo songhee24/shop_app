@@ -31,7 +31,7 @@ class CartScreen extends StatelessWidget {
                   ),
                   Chip(
                     label: Text(
-                      cart.totalAmount.toString(),
+                      '\$${cart.totalAmount}',
                     ),
                   )
                 ],
