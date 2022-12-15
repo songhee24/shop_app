@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/cart_provider.dart';
+import '../widgets/cart_item.dart' as ci;
 
 ///  Created by mac on 15/12/22.
 class CartScreen extends StatelessWidget {
@@ -14,14 +15,14 @@ class CartScreen extends StatelessWidget {
     CartProvider cart = Provider.of<CartProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Your Cart'),
+        title: const Text('Your Cart'),
       ),
       body: Column(
         children: <Widget>[
           Card(
-            margin: EdgeInsets.all(15),
+            margin: const EdgeInsets.all(15),
             child: Padding(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -43,20 +44,26 @@ class CartScreen extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {},
-                    child: Text('Order Now'),
+                    child: const Text('Order Now'),
                   ),
                 ],
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Expanded(
-              child: ListView.builder(
-            itemCount: cart.items.length,
-            itemBuilder: (ctx, i) {},
-          ))
+            child: ListView.builder(
+              itemCount: cart.items.length,
+              itemBuilder: (ctx, i) => ci.CartItem(
+                id: cart.items[i]!.id,
+                title: cart.items[i]!.title,
+                quantity: cart.items[i]!.quantity,
+                price: cart.items[i]!.price,
+              ),
+            ),
+          )
         ],
       ),
     );
