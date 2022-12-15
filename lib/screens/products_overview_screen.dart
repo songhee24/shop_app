@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/badge.dart';
 import '../widgets/products_grid.dart';
 
 enum FilterOptions {
@@ -51,9 +52,19 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
               const PopupMenuItem(
                 value: FilterOptions.All,
                 child: Text('Show All'),
-              )
+              ),
             ],
           ),
+          Badge(
+            child: IconButton(
+              icon: Icon(
+                Icons.shopping_cart,
+              ),
+              onPressed: () {},
+            ),
+            value: 1.toString(),
+            color: Colors.lightBlue,
+          )
         ],
       ),
       body: ProductsGrid(
