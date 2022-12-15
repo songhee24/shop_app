@@ -1,25 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/providers/cart_provider.dart';
 
 ///  Created by mac on 15/12/22.
 class CartItem extends StatelessWidget {
   final String id;
+  final String productId;
   final double price;
   final int quantity;
   final String title;
 
-  const CartItem(
-      {super.key,
-      required this.id,
-      required this.price,
-      required this.quantity,
-      required this.title});
+  const CartItem({
+    super.key,
+    required this.id,
+    required this.price,
+    required this.quantity,
+    required this.title,
+    required this.productId,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.only(
         left: 16,
         right: 16,
+      ),
+      margin: const EdgeInsets.only(
+        bottom: 12,
       ),
       child: Container(
         decoration: BoxDecoration(
@@ -37,7 +45,12 @@ class CartItem extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: Dismissible(
-            key: ValueKey(id),
+            direction: DismissDirection.endToStart,
+            onDismissed: (direction) {
+              Provider.of<CartProvider>(context, listen: false)
+                  .removeItem(productId);
+            },
+            key: UniqueKey(),
             background: Container(
               padding: const EdgeInsets.only(
                 right: 16,
