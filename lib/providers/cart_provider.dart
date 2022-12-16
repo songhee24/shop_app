@@ -67,7 +67,7 @@ class CartProvider with ChangeNotifier {
   }
 
   void clear() {
-    _items = [] as Map<String, CartItem>?;
+    _items = {};
     notifyListeners();
   }
 }
