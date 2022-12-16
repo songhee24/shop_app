@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/providers/orders_provider.dart';
+
+import '../providers/orders_provider.dart' show OrdersProvider;
+import '../widgets/order_item.dart';
 
 ///  Created by mac on 16/12/22.
 class OrdersScreen extends StatelessWidget {
@@ -12,7 +14,9 @@ class OrdersScreen extends StatelessWidget {
         title: const Text('Your Orders'),
       ),
       body: ListView.builder(
-        itemBuilder: (ctx, i) => ,
+        itemBuilder: (ctx, i) => OrderItem(
+          ordersProvider.orders[i],
+        ),
         itemCount: ordersProvider.orders.length,
       ),
     );
