@@ -34,9 +34,4 @@ class OrdersProvider with ChangeNotifier {
     );
     notifyListeners();
   }
-
-  void clear() {
-    _orders = [];
-    notifyListeners();
-  }
 }

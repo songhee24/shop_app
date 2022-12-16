@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/providers/OrdersProvider.dart';
+import 'package:shop_app/providers/orders_provider.dart';
 
 import '../providers/cart_provider.dart' show CartProvider;
 import '../widgets/cart_item.dart';
@@ -50,6 +50,7 @@ class CartScreen extends StatelessWidget {
                         cart.items.values.toList(),
                         cart.totalAmount,
                       );
+                      cart.clear();
                     },
                     child: const Text('Order Now'),
                   ),
