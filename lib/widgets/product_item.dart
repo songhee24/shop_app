@@ -50,6 +50,7 @@ class ProductItem extends StatelessWidget {
                 product.price,
                 product.title,
               );
+              Scaffold.of(context).openDrawer();
             },
           ),
         ),
