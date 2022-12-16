@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/screens/orders_screen.dart';
 
 ///  Created by mac on 16/12/22.
 class AppDrawer extends StatelessWidget {
@@ -27,7 +28,9 @@ class AppDrawer extends StatelessWidget {
               'Orders',
             ),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed('/');
+              Navigator.of(context).pushReplacementNamed(
+                OrdersScreen.routeName,
+              );
             },
           ),
         ],

@@ -6,6 +6,7 @@ import '../widgets/order_item.dart';
 
 ///  Created by mac on 16/12/22.
 class OrdersScreen extends StatelessWidget {
+  static const routeName = '/orders';
   @override
   Widget build(BuildContext context) {
     OrdersProvider ordersProvider = Provider.of<OrdersProvider>(context);
