@@ -45,8 +45,8 @@ class _OrderItemState extends State<OrderItem> {
                 right: 16,
               ),
               height: min(
-                widget.orderItem.products.length * 20.0 + 100,
-                180,
+                widget.orderItem.products.length * 20.0 + 40,
+                100,
               ),
               child: ListView(
                 children: widget.orderItem.products
@@ -54,11 +54,16 @@ class _OrderItemState extends State<OrderItem> {
                       (e) => Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text(
-                            e.title,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                          Container(
+                            margin: const EdgeInsets.only(
+                              bottom: 8,
+                            ),
+                            child: Text(
+                              e.title,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           Text(
