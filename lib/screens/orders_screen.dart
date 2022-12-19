@@ -14,7 +14,9 @@ class OrdersScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: GoBackButton(
-          () {},
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
         title: const Text('Your Orders'),
       ),

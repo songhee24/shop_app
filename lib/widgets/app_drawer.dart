@@ -17,15 +17,6 @@ class AppDrawer extends StatelessWidget {
             title: const Text('Hello Friend!'),
           ),
           const Divider(),
-          ListTile(
-            leading: const Icon(Icons.shop),
-            title: const Text(
-              'shop',
-            ),
-            onTap: () {
-              Navigator.of(context).pushReplacementNamed('/');
-            },
-          ),
           const Divider(),
           ListTile(
             leading: const Icon(Icons.payment),
@@ -33,8 +24,8 @@ class AppDrawer extends StatelessWidget {
               'Orders',
             ),
             onTap: () {
-              Navigator.of(context)
-                  .pushReplacementNamed(OrdersScreen.routeName);
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  OrdersScreen.routeName, (Route route) => true);
             },
           ),
           const Divider(),
