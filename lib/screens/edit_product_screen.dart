@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 ///  Created by mac on 19/12/22.
 class EditproductScreen extends StatefulWidget {
+  static const routeName = '/edit-product';
+
   const EditproductScreen({super.key});
 
   @override
@@ -21,7 +23,7 @@ class _EditproductScreenState extends State<EditproductScreen> {
           child: ListView(
             children: <Widget>[
               TextFormField(
-                decoration: InputDecoration(labelText: 'Title'),
+                decoration: const InputDecoration(labelText: 'Title'),
                 textInputAction: TextInputAction.next,
               ),
             ],

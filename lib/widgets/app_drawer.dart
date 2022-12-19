@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/screens/orders_screen.dart';
 
-import '../screens/user_peoducts_screen.dart';
+import '../screens/user_products_screen.dart';
 
 ///  Created by mac on 16/12/22.
 class AppDrawer extends StatelessWidget {

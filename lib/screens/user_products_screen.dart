@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../providers/products_provider.dart';
 import '../widgets/go_back_button.dart';
 import '../widgets/user_product_item.dart';
+import 'edit_product_screen.dart';
 
 ///  Created by mac on 19/12/22.
 class UserProductsScreen extends StatelessWidget {
@@ -25,7 +26,9 @@ class UserProductsScreen extends StatelessWidget {
         title: const Text('Your Products'),
         actions: <Widget>[
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(EditproductScreen.routeName);
+            },
             icon: const Icon(
               Icons.add,
             ),
