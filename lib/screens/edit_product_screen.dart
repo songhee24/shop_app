@@ -97,6 +97,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
     }
     _formGlobalKey.currentState?.save();
     if (_editedProduct.id != null) {
+      Provider.of<ProductsProvider>(context, listen: false)
+          .updateProduct(_editedProduct.id, _editedProduct);
     } else {
       Provider.of<ProductsProvider>(context, listen: false)
           .addProduct(_editedProduct);
