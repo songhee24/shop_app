@@ -21,6 +21,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   final _formGlobalKey = GlobalKey<FormState>();
   late Color _isImageValue = Colors.grey;
 
+  var _isInit = true;
   var _editedProduct = ProductProvider(
       id: '',
       description: '',
@@ -43,6 +44,18 @@ class _EditProductScreenState extends State<EditProductScreen> {
     _imageUrlController.dispose();
     _imageUrlFocusNode.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      final productId = ModalRoute.of(context)?.settings.arguments as String;
+      final product =
+          Provider.of<ProductsProvider>(context).findById(productId);
+      _editedProduct = product;
+    }
+    _isInit = false;
+    super.didChangeDependencies();
   }
 
   void _updateImageUrl() {
