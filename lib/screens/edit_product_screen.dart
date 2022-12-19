@@ -44,9 +44,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
   }
 
   void _updateImageUrl() {
+    final imageUrl = _imageUrlController.text;
     if (!_imageUrlFocusNode.hasFocus) {
-      setState(() {});
+      if (imageUrl.isEmpty ||
+          !imageUrl.startsWith('http') ||
+          !imageUrl.startsWith('https')) {
+        return;
+      }
     }
+    setState(() {});
   }
 
   void _saveForm() {
