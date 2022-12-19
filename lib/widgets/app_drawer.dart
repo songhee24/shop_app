@@ -33,8 +33,8 @@ class AppDrawer extends StatelessWidget {
               'Orders',
             ),
             onTap: () {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  OrdersScreen.routeName, (Route route) => route.isFirst);
+              Navigator.of(context)
+                  .pushReplacementNamed(OrdersScreen.routeName);
             },
           ),
           const Divider(),
@@ -45,7 +45,9 @@ class AppDrawer extends StatelessWidget {
             ),
             onTap: () {
               Navigator.of(context).pushNamedAndRemoveUntil(
-                  UserProductsScreen.routeName, (Route route) => route.isFirst);
+                UserProductsScreen.routeName,
+                (Route route) => true,
+              );
             },
           ),
         ],

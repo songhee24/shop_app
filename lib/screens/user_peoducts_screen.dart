@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/products_provider.dart';
-import '../widgets/app_drawer.dart';
 import '../widgets/user_product_item.dart';
 
 ///  Created by mac on 19/12/22.
@@ -46,7 +45,6 @@ class UserProductsScreen extends StatelessWidget {
           itemCount: productsData.items.length,
         ),
       ),
-      drawer: AppDrawer(),
     );
   }
 }
