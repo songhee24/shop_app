@@ -30,6 +30,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
       imageUrl: '',
       isFavorite: false);
 
+  var _initValues = {
+    'title': '',
+    'description': '',
+    'price': '',
+    'imageUrl': ''
+  };
+
   @override
   void initState() {
     _imageUrlFocusNode.addListener(_updateImageUrl);
@@ -53,6 +60,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
       final product =
           Provider.of<ProductsProvider>(context).findById(productId);
       _editedProduct = product;
+      _initValues = {
+        'title': _editedProduct.title,
+        'description': _editedProduct.description,
+        'price': _editedProduct.price.toString(),
+        'imageUrl': _editedProduct.imageUrl,
+      };
     }
     _isInit = false;
     super.didChangeDependencies();
