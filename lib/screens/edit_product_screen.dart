@@ -17,6 +17,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   final _imageUrlController = TextEditingController();
   final _imageUrlFocusNode = FocusNode();
   final _formGlobalKey = GlobalKey<FormState>();
+  late Color _isImageValue = Colors.grey;
 
   var _editedProduct = ProductProvider(
       id: '',
@@ -50,6 +51,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   void _saveForm() {
     _formGlobalKey.currentState?.validate();
+    setState(() {
+      _isImageValue =
+          _imageUrlController.text.isEmpty ? Colors.red : Colors.grey;
+    });
     _formGlobalKey.currentState?.save();
     print(_editedProduct);
   }
@@ -156,7 +161,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       decoration: BoxDecoration(
                         border: Border.all(
                           width: 1,
-                          color: Colors.grey,
+                          color: _isImageValue,
                         ),
                       ),
                       child: _imageUrlController.text.isEmpty
