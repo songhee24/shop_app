@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/screens/orders_screen.dart';
 
+import '../screens/user_peoducts_screen.dart';
+
 ///  Created by mac on 16/12/22.
 class AppDrawer extends StatelessWidget {
+  const AppDrawer({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -22,6 +26,7 @@ class AppDrawer extends StatelessWidget {
               Navigator.of(context).pushReplacementNamed('/');
             },
           ),
+          const Divider(),
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text(
@@ -30,6 +35,18 @@ class AppDrawer extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pushReplacementNamed(
                 OrdersScreen.routeName,
+              );
+            },
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.edit),
+            title: const Text(
+              'Manage Products',
+            ),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(
+                UserProductsScreen.routeName,
               );
             },
           ),
