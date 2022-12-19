@@ -176,6 +176,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         controller: _imageUrlController,
                         focusNode: _imageUrlFocusNode,
                         onFieldSubmitted: (_) => _saveForm(),
+                        validator: (value) {
+                          return value!.isEmpty
+                              ? 'Please provide value.'
+                              : null;
+                        },
                         onSaved: (value) {
                           _editedProduct = ProductProvider(
                               id: _editedProduct.id,
