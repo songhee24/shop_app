@@ -125,6 +125,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
             child: ListView(
               children: <Widget>[
                 TextFormField(
+                  initialValue: _initValues['title'],
                   autofocus: true,
                   validator: (value) {
                     return value!.isEmpty ? 'Please provide value.' : null;
@@ -145,6 +146,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   },
                 ),
                 TextFormField(
+                  initialValue: _initValues['price'],
                   decoration: InputDecoration(
                       labelText: 'Price',
                       errorBorder: UnderlineInputBorder(
@@ -181,6 +183,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   },
                 ),
                 TextFormField(
+                  initialValue: _initValues['description'],
                   decoration: const InputDecoration(labelText: 'Description'),
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -229,6 +232,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                     ),
                     Expanded(
                       child: TextFormField(
+                        initialValue: _initValues['imageUrl'],
                         decoration: const InputDecoration(
                           labelText: 'Image URL',
                         ),
