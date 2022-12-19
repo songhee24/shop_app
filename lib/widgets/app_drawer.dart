@@ -17,7 +17,6 @@ class AppDrawer extends StatelessWidget {
             title: const Text('Hello Friend!'),
           ),
           const Divider(),
-          const Divider(),
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text(
