@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 ///  Created by mac on 19/12/22.
-class EditproductScreen extends StatefulWidget {
+class EditProductScreen extends StatefulWidget {
   static const routeName = '/edit-product';
 
-  const EditproductScreen({super.key});
+  const EditProductScreen({super.key});
 
   @override
-  State<EditproductScreen> createState() => _EditproductScreenState();
+  State<EditProductScreen> createState() => _EditProductScreenState();
 }
 
-class _EditproductScreenState extends State<EditproductScreen> {
+class _EditProductScreenState extends State<EditProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +25,11 @@ class _EditproductScreenState extends State<EditproductScreen> {
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Title'),
                 textInputAction: TextInputAction.next,
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Price'),
+                textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.number,
               ),
             ],
           ),
