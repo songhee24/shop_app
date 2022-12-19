@@ -6,6 +6,8 @@ import '../widgets/user_product_item.dart';
 
 ///  Created by mac on 19/12/22.
 class UserProductsScreen extends StatelessWidget {
+  static const routeName = '/user-products';
+
   @override
   Widget build(BuildContext context) {
     final ProductsProvider productsData =
