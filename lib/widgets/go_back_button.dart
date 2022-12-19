@@ -1,22 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 ///  Created by mac on 19/12/22.
 class GoBackButton extends StatelessWidget {
   final VoidCallback onPressed;
-  late Icon icon;
+  Icon icon;
 
-  GoBackButton(this.onPressed, this.icon, {super.key});
+  GoBackButton({super.key, required this.onPressed, icon})
+      : icon = Platform.isIOS
+            ? const Icon(Icons.arrow_back_ios)
+            : const Icon(Icons.arrow_back);
 
   @override
   Widget build(BuildContext context) {
-    final _icon = icon;
-    return IconButton(
-      onPressed: onPressed,
-      icon: _icon == null
-          ? const Icon(
-              Icons.arrow_back_ios,
-            )
-          : const Icon(Icons.arrow_back),
-    );
+    return IconButton(onPressed: onPressed, icon: icon);
   }
 }
