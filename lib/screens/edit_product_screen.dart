@@ -49,6 +49,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   }
 
   void _saveForm() {
+    _formGlobalKey.currentState?.validate();
     _formGlobalKey.currentState?.save();
     print(_editedProduct);
   }
@@ -79,6 +80,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
               children: <Widget>[
                 TextFormField(
                   autofocus: true,
+                  validator: (value) {
+                    return value!.isEmpty ? 'Please provide value.' : null;
+                  },
                   decoration: const InputDecoration(labelText: 'Title'),
                   textInputAction: TextInputAction.next,
                   onFieldSubmitted: (_) {
@@ -95,7 +99,16 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   },
                 ),
                 TextFormField(
-                  decoration: const InputDecoration(labelText: 'Price'),
+                  decoration: InputDecoration(
+                      labelText: 'Price',
+                      errorBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Theme.of(context).errorColor,
+                        ),
+                      )),
+                  validator: (value) {
+                    return value!.isEmpty ? 'Please provide value.' : null;
+                  },
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
                   focusNode: _priceFocusNode,
@@ -114,6 +127,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 ),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Description'),
+                  validator: (value) {
+                    return value!.isEmpty ? 'Please provide value.' : null;
+                  },
                   maxLines: 3,
                   keyboardType: TextInputType.multiline,
                   focusNode: _descriptionFocusNode,
