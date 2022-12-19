@@ -8,6 +8,11 @@ class ProductProvider with ChangeNotifier {
   final String imageUrl;
   late bool isFavorite;
 
+  @override
+  String toString() {
+    return 'ProductProvider{id: $id, description: $description, title: $title, price: $price, imageUrl: $imageUrl, isFavorite: $isFavorite}';
+  }
+
   ProductProvider({
     required this.id,
     required this.description,

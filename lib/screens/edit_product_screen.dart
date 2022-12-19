@@ -50,6 +50,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   void _saveForm() {
     _formGlobalKey.currentState?.save();
+    print(_editedProduct);
   }
 
   @override
@@ -59,7 +60,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
         title: const Text('Edit Product'),
         actions: <Widget>[
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              _saveForm();
+            },
             icon: const Icon(Icons.save),
           ),
         ],
