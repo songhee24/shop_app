@@ -115,7 +115,16 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         ),
                       )),
                   validator: (value) {
-                    return value!.isEmpty ? 'Please provide value.' : null;
+                    if (value!.isEmpty) {
+                      return 'Please Enter a Price.';
+                    }
+                    if (double.tryParse(value) == null) {
+                      return 'Please enter a valid number';
+                    }
+                    if (double.parse(value) <= 0) {
+                      return 'Please enter number greater than 0';
+                    }
+                    return null;
                   },
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
@@ -136,7 +145,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Description'),
                   validator: (value) {
-                    return value!.isEmpty ? 'Please provide value.' : null;
+                    if (value!.isEmpty) {
+                      return 'Please enter a description.';
+                    }
+                    if (value.length < 10) {
+                      return 'Should be at least 10 characters long.';
+                    }
+                    return null;
                   },
                   maxLines: 3,
                   keyboardType: TextInputType.multiline,
@@ -185,9 +200,14 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         focusNode: _imageUrlFocusNode,
                         onFieldSubmitted: (_) => _saveForm(),
                         validator: (value) {
-                          return value!.isEmpty
-                              ? 'Please provide value.'
-                              : null;
+                          if (value!.isEmpty) {
+                            return 'Please enter an image Url';
+                          }
+                          if (!value.startsWith('http') ||
+                              !value.startsWith('https')) {
+                            return 'Please enter a valid URL';
+                          }
+                          return null;
                         },
                         onSaved: (value) {
                           _editedProduct = ProductProvider(
