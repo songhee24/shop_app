@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/widgets/app_drawer.dart';
 
 import '../providers/products_provider.dart';
+import '../widgets/app_drawer.dart';
 import '../widgets/user_product_item.dart';
 
 ///  Created by mac on 19/12/22.
@@ -17,10 +17,16 @@ class UserProductsScreen extends StatelessWidget {
         Provider.of<ProductsProvider>(context);
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
         title: const Text('Your Products'),
         actions: <Widget>[
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
             icon: const Icon(
               Icons.add,
             ),

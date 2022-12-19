@@ -13,8 +13,8 @@ class AppDrawer extends StatelessWidget {
       child: Column(
         children: <Widget>[
           AppBar(
-            title: const Text('Hello Friend!'),
             automaticallyImplyLeading: false,
+            title: const Text('Hello Friend!'),
           ),
           const Divider(),
           ListTile(
@@ -33,9 +33,8 @@ class AppDrawer extends StatelessWidget {
               'Orders',
             ),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed(
-                OrdersScreen.routeName,
-              );
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  OrdersScreen.routeName, (Route route) => route.isFirst);
             },
           ),
           const Divider(),
@@ -45,9 +44,8 @@ class AppDrawer extends StatelessWidget {
               'Manage Products',
             ),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed(
-                UserProductsScreen.routeName,
-              );
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  UserProductsScreen.routeName, (Route route) => route.isFirst);
             },
           ),
         ],
