@@ -50,11 +50,14 @@ class _EditProductScreenState extends State<EditProductScreen> {
   }
 
   void _saveForm() {
-    _formGlobalKey.currentState?.validate();
+    final isValid = _formGlobalKey.currentState?.validate();
     setState(() {
       _isImageValue =
           _imageUrlController.text.isEmpty ? Colors.red : Colors.grey;
     });
+    if (!isValid!) {
+      return;
+    }
     _formGlobalKey.currentState?.save();
     print(_editedProduct);
   }
