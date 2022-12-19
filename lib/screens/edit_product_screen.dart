@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shop_app/providers/product_provider.dart';
+import 'package:shop_app/providers/products_provider.dart';
 
 ///  Created by mac on 19/12/22.
 class EditProductScreen extends StatefulWidget {
@@ -65,7 +67,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
       return;
     }
     _formGlobalKey.currentState?.save();
-    print(_editedProduct);
+    Provider.of<ProductsProvider>(context, listen: false)
+        .addProduct(_editedProduct);
+    Navigator.of(context).pop();
   }
 
   @override
