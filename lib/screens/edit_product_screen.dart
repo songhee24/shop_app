@@ -62,6 +62,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   focusNode: _descriptionFocusNode,
                 ),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     Container(
                       width: 100,
@@ -79,8 +80,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       child: _imageUrlController.text.isEmpty
                           ? const Text('Enter Url')
                           : FittedBox(
-                              child: Image.network(_imageUrlController.text),
                               fit: BoxFit.cover,
+                              child: Image.network(_imageUrlController.text),
                             ),
                     ),
                     Expanded(
