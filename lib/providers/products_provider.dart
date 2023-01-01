@@ -83,9 +83,9 @@ class ProductsProvider with ChangeNotifier {
               'price': double.parse(productProvider.price.toString()),
               'isFavorite': productProvider.isFavorite
             }))
-        .then((value) {
+        .then((response) {
       final newProduct = ProductProvider(
-          id: DateTime.now().toString(),
+          id: json.decode(response.body)['name'],
           description: productProvider.description,
           title: productProvider.title,
           price: productProvider.price,
