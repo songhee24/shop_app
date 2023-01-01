@@ -93,6 +93,8 @@ class ProductsProvider with ChangeNotifier {
           isFavorite: productProvider.isFavorite);
       _items.add(newProduct);
       notifyListeners();
+    }).catchError((onError) {
+      throw onError;
     });
   }
 
