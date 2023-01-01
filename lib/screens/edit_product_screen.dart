@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/providers/product_provider.dart';
@@ -115,12 +118,19 @@ class _EditProductScreenState extends State<EditProductScreen> {
         });
         showDialog(
           context: context,
-          builder: (builder) => AlertDialog(
-            title: const Text('An error occured!'),
-            content: Text(
-              onError.toString(),
-            ),
-          ),
+          builder: (builder) => Platform.isIOS
+              ? CupertinoAlertDialog(
+                  title: const Text('An error occured!'),
+                  content: Text(
+                    onError.toString(),
+                  ),
+                )
+              : AlertDialog(
+                  title: const Text('An error occured!'),
+                  content: Text(
+                    onError.toString(),
+                  ),
+                ),
         );
       });
     } else {
