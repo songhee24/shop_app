@@ -71,14 +71,15 @@ class ProductsProvider with ChangeNotifier {
   }
 
   void addProduct(ProductProvider productProvider) {
-    final url = Uri.parse(
-        'https://flutter-http-299a3-default-rtdb.asia-southeast1.firebasedatabase.app/products.json');
+    final url = Uri.https(
+        'flutter-http-299a3-default-rtdb.asia-southeast1.firebasedatabase.app',
+        '/products.json');
     http.post(url,
         body: json.encode({
           'title': productProvider.title,
           'description': productProvider.description,
           'imageUrl': productProvider.imageUrl,
-          'price': productProvider.price,
+          'price': double.parse(productProvider.price.toString()),
           'isFavorite': productProvider.isFavorite
         }));
     final newProduct = ProductProvider(
