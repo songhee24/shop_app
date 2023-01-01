@@ -73,7 +73,7 @@ class ProductsProvider with ChangeNotifier {
   Future<void> addProduct(ProductProvider productProvider) {
     final url = Uri.https(
         'flutter-http-299a3-default-rtdb.asia-southeast1.firebasedatabase.app',
-        '/products.json');
+        '/products');
     return http
         .post(url,
             body: json.encode({
