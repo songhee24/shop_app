@@ -74,23 +74,26 @@ class ProductsProvider with ChangeNotifier {
     final url = Uri.https(
         'flutter-http-299a3-default-rtdb.asia-southeast1.firebasedatabase.app',
         '/products.json');
-    http.post(url,
-        body: json.encode({
-          'title': productProvider.title,
-          'description': productProvider.description,
-          'imageUrl': productProvider.imageUrl,
-          'price': double.parse(productProvider.price.toString()),
-          'isFavorite': productProvider.isFavorite
-        }));
-    final newProduct = ProductProvider(
-        id: DateTime.now().toString(),
-        description: productProvider.description,
-        title: productProvider.title,
-        price: productProvider.price,
-        imageUrl: productProvider.imageUrl,
-        isFavorite: productProvider.isFavorite);
-    _items.add(newProduct);
-    notifyListeners();
+    http
+        .post(url,
+            body: json.encode({
+              'title': productProvider.title,
+              'description': productProvider.description,
+              'imageUrl': productProvider.imageUrl,
+              'price': double.parse(productProvider.price.toString()),
+              'isFavorite': productProvider.isFavorite
+            }))
+        .then((value) {
+      final newProduct = ProductProvider(
+          id: DateTime.now().toString(),
+          description: productProvider.description,
+          title: productProvider.title,
+          price: productProvider.price,
+          imageUrl: productProvider.imageUrl,
+          isFavorite: productProvider.isFavorite);
+      _items.add(newProduct);
+      notifyListeners();
+    });
   }
 
   void updateProduct(String id, ProductProvider newProduct) {
