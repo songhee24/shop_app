@@ -128,10 +128,18 @@ class _EditProductScreenState extends State<EditProductScreen> {
         title: const Text('Edit Product'),
         actions: <Widget>[
           IconButton(
-            onPressed: () {
-              _saveForm();
-            },
-            icon: const Icon(Icons.save),
+            onPressed: _isLoading ? null : _saveForm,
+            icon: _isLoading
+                ? Container(
+                    width: 24,
+                    height: 24,
+                    padding: const EdgeInsets.all(2.0),
+                    child: const CircularProgressIndicator(
+                      color: Colors.white,
+                      strokeWidth: 3,
+                    ),
+                  )
+                : const Icon(Icons.save),
           ),
         ],
       ),
