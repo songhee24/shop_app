@@ -7,10 +7,32 @@ import '../widgets/user_product_item.dart';
 import 'edit_product_screen.dart';
 
 ///  Created by mac on 19/12/22.
-class UserProductsScreen extends StatelessWidget {
+class UserProductsScreen extends StatefulWidget {
   static const routeName = '/user-products';
 
   const UserProductsScreen({super.key});
+
+  @override
+  State<UserProductsScreen> createState() => _UserProductsScreenState();
+}
+
+class _UserProductsScreenState extends State<UserProductsScreen> {
+  Future<void> _navigateAndDisplaySelection(BuildContext context) async {
+    // Navigator.push returns a Future that completes after calling
+    // Navigator.pop on the Selection Screen.
+    final result =
+        await Navigator.of(context).pushNamed(EditProductScreen.routeName);
+
+    // When a BuildContext is used from a StatefulWidget, the mounted property
+    // must be checked after an asynchronous gap.
+    if (!mounted) return;
+
+    // After the Selection Screen returns a result, hide any previous snackbars
+    // and show the new result.
+    ScaffoldMessenger.of(context)
+      ..removeCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text('$result')));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +49,7 @@ class UserProductsScreen extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(EditProductScreen.routeName);
+              _navigateAndDisplaySelection(context);
             },
             icon: const Icon(
               Icons.add,

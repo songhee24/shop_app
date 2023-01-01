@@ -111,7 +111,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
         setState(() {
           _isLoading = true;
         });
-        Navigator.of(context).pop();
+        Navigator.of(context).pop('Product has been added!');
       }).catchError((onError) {
         setState(() {
           _isLoading = false;
@@ -139,7 +139,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
       setState(() {
         _isLoading = true;
       });
-      Navigator.of(context).pop();
+      Navigator.of(context).pop('Product has been updated!');
     }
     // Navigator.of(context).pop();
   }
