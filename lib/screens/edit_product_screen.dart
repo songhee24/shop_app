@@ -106,7 +106,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     });
     try {
       if (_editedProduct.id.isEmpty) {
-        Provider.of<ProductsProvider>(context, listen: false)
+        await Provider.of<ProductsProvider>(context, listen: false)
             .addProduct(_editedProduct)
             .then((_) {
           setState(() {
@@ -123,6 +123,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
         Navigator.of(context).pop('Product has been updated!');
       }
     } catch (onError) {
+      print(onError);
       setState(() {
         _isLoading = false;
       });
