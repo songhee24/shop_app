@@ -75,7 +75,7 @@ class ProductsProvider with ChangeNotifier {
     final url = Uri.https(Apis.baseUrl, Apis.getProductsApi);
     try {
       final response = await http.get(url);
-      print(response);
+      print(json.decode(response.body));
     } catch (onError) {
       throw (onError);
     }
