@@ -70,20 +70,19 @@ class ProductsProvider with ChangeNotifier {
     );
   }
 
-  Future<void> addProduct(ProductProvider productProvider) {
+  Future<void> addProduct(ProductProvider productProvider) async {
     final url = Uri.https(
         'flutter-http-299a3-default-rtdb.asia-southeast1.firebasedatabase.app',
         '/products.json');
-    return http
-        .post(url,
-            body: json.encode({
-              'title': productProvider.title,
-              'description': productProvider.description,
-              'imageUrl': productProvider.imageUrl,
-              'price': double.parse(productProvider.price.toString()),
-              'isFavorite': productProvider.isFavorite
-            }))
-        .then((response) {
+    try {
+      final response = await http.post(url,
+          body: json.encode({
+            'title': productProvider.title,
+            'description': productProvider.description,
+            'imageUrl': productProvider.imageUrl,
+            'price': double.parse(productProvider.price.toString()),
+            'isFavorite': productProvider.isFavorite
+          }));
       final newProduct = ProductProvider(
           id: json.decode(response.body)['name'],
           description: productProvider.description,
@@ -93,9 +92,9 @@ class ProductsProvider with ChangeNotifier {
           isFavorite: productProvider.isFavorite);
       _items.add(newProduct);
       notifyListeners();
-    }).catchError((onError) {
+    } catch (onError) {
       throw onError;
-    });
+    }
   }
 
   void updateProduct(String id, ProductProvider newProduct) {
