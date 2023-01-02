@@ -33,10 +33,8 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      if (mounted) {
-        Provider.of<ProductsProvider>(context, listen: false)
-            .fetchAndSetProducts();
-      }
+      Provider.of<ProductsProvider>(context, listen: false)
+          .fetchAndSetProducts();
     }
     _isInit = false;
     super.didChangeDependencies();
