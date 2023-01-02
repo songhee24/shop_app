@@ -29,6 +29,10 @@ class _UserProductsScreenState extends State<UserProductsScreen> {
 
     // After the Selection Screen returns a result, hide any previous snackbars
     // and show the new result.
+    if (result == null) {
+      return;
+    }
+
     ScaffoldMessenger.of(context)
       ..removeCurrentSnackBar()
       ..showSnackBar(SnackBar(content: Text('$result')));
