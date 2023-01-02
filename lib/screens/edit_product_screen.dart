@@ -91,7 +91,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     setState(() {});
   }
 
-  void _saveForm() {
+  void _saveForm() async {
     final isValid = _formGlobalKey.currentState?.validate();
     setState(() {
       _isImageValue =
@@ -104,43 +104,46 @@ class _EditProductScreenState extends State<EditProductScreen> {
     setState(() {
       _isLoading = true;
     });
-    if (_editedProduct.id.isEmpty) {
-      Provider.of<ProductsProvider>(context, listen: false)
-          .addProduct(_editedProduct)
-          .then((_) {
+    try {
+      if (_editedProduct.id.isEmpty) {
+        Provider.of<ProductsProvider>(context, listen: false)
+            .addProduct(_editedProduct)
+            .then((_) {
+          setState(() {
+            _isLoading = true;
+          });
+          Navigator.of(context).pop('Product has been added!');
+        });
+      } else {
+        Provider.of<ProductsProvider>(context, listen: false)
+            .updateProduct(_editedProduct.id, _editedProduct);
         setState(() {
           _isLoading = true;
         });
-        Navigator.of(context).pop('Product has been added!');
-      }).catchError((onError) {
-        setState(() {
-          _isLoading = false;
-        });
-        showDialog(
-          context: context,
-          builder: (builder) => Platform.isIOS
-              ? CupertinoAlertDialog(
-                  title: const Text('An error occured!'),
-                  content: Text(
-                    onError.toString(),
-                  ),
-                )
-              : AlertDialog(
-                  title: const Text('An error occured!'),
-                  content: Text(
-                    onError.toString(),
-                  ),
-                ),
-        );
-      });
-    } else {
-      Provider.of<ProductsProvider>(context, listen: false)
-          .updateProduct(_editedProduct.id, _editedProduct);
+        Navigator.of(context).pop('Product has been updated!');
+      }
+    } catch (onError) {
       setState(() {
-        _isLoading = true;
+        _isLoading = false;
       });
-      Navigator.of(context).pop('Product has been updated!');
+      showDialog(
+        context: context,
+        builder: (builder) => Platform.isIOS
+            ? CupertinoAlertDialog(
+                title: const Text('An error occured!'),
+                content: Text(
+                  onError.toString(),
+                ),
+              )
+            : AlertDialog(
+                title: const Text('An error occured!'),
+                content: Text(
+                  onError.toString(),
+                ),
+              ),
+      );
     }
+
     // Navigator.of(context).pop();
   }
 
