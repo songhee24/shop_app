@@ -23,16 +23,23 @@ class ProductsOverviewScreen extends StatefulWidget {
 
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   bool _showOnlyFavorites = false;
+  var _isInit = true;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
       if (mounted) {
         Provider.of<ProductsProvider>(context, listen: false)
             .fetchAndSetProducts();
       }
-    });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
   }
 
   @override
