@@ -26,17 +26,17 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
 
   @override
   void initState() {
-    Future.delayed(Duration.zero).then((_) {
-      Provider.of<ProductsProvider>(context).fetchAndSetProducts();
-    });
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (mounted) {
+        Provider.of<ProductsProvider>(context, listen: false)
+            .fetchAndSetProducts();
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    // final productsContainer =
-    //     Provider.of<ProductsProvider>(context, listen: false);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
