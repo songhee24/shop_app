@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:shop_app/configs/Apis.dart';
 
 import 'product_provider.dart';
 
@@ -70,10 +71,18 @@ class ProductsProvider with ChangeNotifier {
     );
   }
 
+  Future<void> fetchAndSetProducts() async {
+    final url = Uri.https(Apis.baseUrl, Apis.getProductsApi);
+    try {
+      final response = await http.get(url);
+      print(response);
+    } catch (onError) {
+      throw (onError);
+    }
+  }
+
   Future<void> addProduct(ProductProvider productProvider) async {
-    final url = Uri.https(
-        'flutter-http-299a3-default-rtdb.asia-southeast1.firebasedatabase.app',
-        '/products');
+    final url = Uri.https(Apis.baseUrl, Apis.addProductApi);
     try {
       final response = await http.post(url,
           body: json.encode({
