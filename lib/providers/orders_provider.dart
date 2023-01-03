@@ -26,6 +26,11 @@ class OrdersProvider with ChangeNotifier {
     return [..._orders];
   }
 
+  Future<void> fetchAndSetOrders() async {
+    final url = Uri.https(Apis.baseUrl, Apis.addOrdersApi);
+    http.get(url);
+  }
+
   Future<void> addOrder(List<CartItem> cartProducts, double total) async {
     final url = Uri.https(Apis.baseUrl, Apis.addOrdersApi);
     final timestamp = DateTime.now();

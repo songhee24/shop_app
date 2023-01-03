@@ -6,8 +6,14 @@ import '../widgets/go_back_button.dart';
 import '../widgets/order_item.dart';
 
 ///  Created by mac on 16/12/22.
-class OrdersScreen extends StatelessWidget {
+class OrdersScreen extends StatefulWidget {
   static const routeName = '/orders';
+
+  @override
+  State<OrdersScreen> createState() => _OrdersScreenState();
+}
+
+class _OrdersScreenState extends State<OrdersScreen> {
   @override
   Widget build(BuildContext context) {
     OrdersProvider ordersProvider = Provider.of<OrdersProvider>(context);
