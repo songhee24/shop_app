@@ -143,13 +143,14 @@ class ProductsProvider with ChangeNotifier {
     final existingProductIndex =
         _items.indexWhere((element) => element.id == productId);
     ProductProvider? existingProduct = _items[existingProductIndex];
-    _items.removeAt(existingProductIndex);
-    notifyListeners();
-    http.delete(url).then((value) {
+    http.delete(url).then((response) {
+      if (response.statusCode >= 400) {}
       existingProduct = null;
     }).catchError((onError) {
       _items.insert(existingProductIndex, existingProduct!);
       notifyListeners();
     });
+    _items.removeAt(existingProductIndex);
+    notifyListeners();
   }
 }
