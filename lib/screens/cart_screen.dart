@@ -99,7 +99,7 @@ class _OrderButtonState extends State<OrderButton> {
                 _isLoading = false;
               });
             },
-      child: const Text('Order Now'),
+      child: _isLoading ? CircularProgressIndicator() : const Text('Order Now'),
     );
   }
 }

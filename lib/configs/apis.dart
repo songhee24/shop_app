@@ -4,6 +4,7 @@ class Apis {
 
   static const addProductApi = '/products.json';
   static const getProductsApi = '/products.json';
+  static const addOrdersApi = '/orders.json';
 
   static getFiledById(String id) {
     return '/products/$id.json';
