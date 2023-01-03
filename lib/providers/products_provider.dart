@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:shop_app/configs/Apis.dart';
+import 'package:shop_app/models/http_exception.dart';
 
 import 'product_provider.dart';
 
@@ -145,7 +146,7 @@ class ProductsProvider with ChangeNotifier {
     ProductProvider? existingProduct = _items[existingProductIndex];
     http.delete(url).then((response) {
       if (response.statusCode >= 400) {
-        return Exception();
+        throw HttpException('Could not delete product');
       }
       existingProduct = null;
     }).catchError((onError) {
