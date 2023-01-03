@@ -120,19 +120,21 @@ class ProductsProvider with ChangeNotifier {
 
   Future<void> updateProduct(String id, ProductProvider newProduct) async {
     final url = Uri.https(Apis.baseUrl, Apis.getFiledById(id));
-
-    http.patch(url,
-        body: json.encode({
-          'title': newProduct.title,
-          'description': newProduct.description,
-          'imageUrl': newProduct.imageUrl,
-          'price': newProduct.price,
-        }));
-
     final prodIndex = _items.indexWhere((element) => element.id == id);
-    if (prodIndex >= 0) {
-      _items[prodIndex] = newProduct;
-      notifyListeners();
+    try {
+      if (prodIndex >= 0) {
+        await http.patch(url,
+            body: json.encode({
+              'title': newProduct.title,
+              'description': newProduct.description,
+              'imageUrl': newProduct.imageUrl,
+              'price': newProduct.price,
+            }));
+        _items[prodIndex] = newProduct;
+        notifyListeners();
+      }
+    } catch (onError) {
+      throw onError;
     }
   }
 
