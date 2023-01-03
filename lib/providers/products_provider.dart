@@ -139,7 +139,17 @@ class ProductsProvider with ChangeNotifier {
   }
 
   void deleteProduct(String productId) {
-    _items.removeWhere((element) => element.id == productId);
+    final url = Uri.https(Apis.baseUrl, Apis.getFiledById(productId));
+    final existingProductIndex =
+        _items.indexWhere((element) => element.id == productId);
+    ProductProvider? existingProduct = _items[existingProductIndex];
+    _items.removeAt(existingProductIndex);
     notifyListeners();
+    http.delete(url).then((value) {
+      existingProduct = null;
+    }).catchError((onError) {
+      _items.insert(existingProductIndex, existingProduct!);
+      notifyListeners();
+    });
   }
 }
