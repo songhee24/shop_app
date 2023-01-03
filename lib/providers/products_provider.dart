@@ -139,21 +139,20 @@ class ProductsProvider with ChangeNotifier {
     }
   }
 
-  void deleteProduct(String productId) {
+  Future<void> deleteProduct(String productId) async {
     final url = Uri.https(Apis.baseUrl, Apis.getFiledById(productId));
     final existingProductIndex =
         _items.indexWhere((element) => element.id == productId);
     ProductProvider? existingProduct = _items[existingProductIndex];
-    http.delete(url).then((response) {
-      if (response.statusCode >= 400) {
-        throw HttpException('Could not delete product');
-      }
-      existingProduct = null;
-    }).catchError((onError) {
-      _items.insert(existingProductIndex, existingProduct!);
-      notifyListeners();
-    });
+    final response = await http.delete(url);
+
     _items.removeAt(existingProductIndex);
     notifyListeners();
+    if (response.statusCode >= 400) {
+      _items.insert(existingProductIndex, existingProduct!);
+      notifyListeners();
+      throw HttpException('Could not delete product');
+    }
+    existingProduct = null;
   }
 }
