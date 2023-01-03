@@ -115,6 +115,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
           Navigator.of(context).pop('Product has been added!');
         });
       } else {
+        print('id:${_editedProduct.id}');
         await Provider.of<ProductsProvider>(context, listen: false)
             .updateProduct(_editedProduct.id, _editedProduct)
             .then((_) {

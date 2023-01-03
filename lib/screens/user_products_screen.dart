@@ -22,11 +22,12 @@ class _UserProductsScreenState extends State<UserProductsScreen> {
         .fetchAndSetProducts();
   }
 
-  Future<void> _navigateAndDisplaySelection(BuildContext context) async {
+  Future<void> _navigateAndDisplaySelection(
+      BuildContext context, dynamic productId) async {
     // Navigator.push returns a Future that completes after calling
     // Navigator.pop on the Selection Screen.
-    final result =
-        await Navigator.of(context).pushNamed(EditProductScreen.routeName);
+    final result = await Navigator.of(context)
+        .pushNamed(EditProductScreen.routeName, arguments: productId);
 
     // When a BuildContext is used from a StatefulWidget, the mounted property
     // must be checked after an asynchronous gap.
@@ -34,6 +35,7 @@ class _UserProductsScreenState extends State<UserProductsScreen> {
 
     // After the Selection Screen returns a result, hide any previous snackbars
     // and show the new result.
+    print('result$result');
     if (result == null) {
       return;
     }
@@ -52,6 +54,7 @@ class _UserProductsScreenState extends State<UserProductsScreen> {
             productsData.items[i].title,
             productsData.items[i].imageUrl,
             id: productsData.items[i].id,
+            navigateToEdit: _navigateAndDisplaySelection,
           ),
           const Divider(),
         ]),
@@ -75,7 +78,7 @@ class _UserProductsScreenState extends State<UserProductsScreen> {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              _navigateAndDisplaySelection(context);
+              _navigateAndDisplaySelection(context, null);
             },
             icon: const Icon(
               Icons.add,
