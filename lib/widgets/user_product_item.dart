@@ -33,7 +33,7 @@ class UserProductItem extends StatelessWidget {
             IconButton(
               onPressed: () async {
                 try {
-                  Provider.of<ProductsProvider>(context, listen: false)
+                  await Provider.of<ProductsProvider>(context, listen: false)
                       .deleteProduct(id);
                 } catch (onError) {
                   ScaffoldMessenger.of(context).showSnackBar(
