@@ -35,12 +35,17 @@ class ProductProvider with ChangeNotifier {
       Apis.getFiledById(id),
     );
     try {
-      await http.patch(url,
+      final response = await http.patch(url,
           body: json.encode({
             'isFavorite': isFavorite,
           }));
+      if (response.statusCode >= 400) {
+        isFavorite = oldStatus;
+        notifyListeners();
+      }
     } catch (onError) {
       isFavorite = oldStatus;
+      notifyListeners();
     }
   }
 }
