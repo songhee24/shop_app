@@ -38,17 +38,39 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<ProductsProvider>(context).fetchAndSetProducts().then((_) {
+      Provider.of<ProductsProvider>(context, listen: false)
+          .fetchAndSetProducts()
+          .then((_) {
         setState(() {
           _isLoading = false;
         });
       }).catchError((onError) {
-        _isErrorOccurred = onError;
-        _isLoading = false;
+        setState(() {
+          _isLoading = false;
+          _isErrorOccurred = onError;
+        });
       });
     }
     _isInit = false;
     super.didChangeDependencies();
+  }
+
+  Widget _renderOverviewItems() {
+    if (_isErrorOccurred != null) {
+      return Center(
+        child: Text(
+          _isErrorOccurred.toString(),
+        ),
+      );
+    }
+
+    return _isLoading
+        ? const Center(
+            child: CircularProgressIndicator(),
+          )
+        : ProductsGrid(
+            showFavorites: _showOnlyFavorites,
+          );
   }
 
   @override
@@ -105,19 +127,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
           )
         ],
       ),
-      body: _isErrorOccurred != null
-          ? Center(
-              child: Text(
-                _isErrorOccurred.toString(),
-              ),
-            )
-          : _isLoading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : ProductsGrid(
-                  showFavorites: _showOnlyFavorites,
-                ),
+      body: _renderOverviewItems(),
       drawer: AppDrawer(),
     );
   }
