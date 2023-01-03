@@ -6,6 +6,6 @@ class Apis {
   static const getProductsApi = '/products.json';
 
   static getFiledById(String id) {
-    return '/products/$id.jon';
+    return '/products/$id.json';
   }
 }
