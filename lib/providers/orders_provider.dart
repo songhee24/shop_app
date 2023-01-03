@@ -27,7 +27,7 @@ class OrdersProvider with ChangeNotifier {
   }
 
   Future<void> addOrder(List<CartItem> cartProducts, double total) async {
-    final url = Uri.https(Apis.baseUrl, 'orders.json');
+    final url = Uri.https(Apis.baseUrl, Apis.addOrdersApi);
     final timestamp = DateTime.now();
     final response = await http.post(url,
         body: json.encode({
