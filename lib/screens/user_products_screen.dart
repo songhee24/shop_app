@@ -17,6 +17,10 @@ class UserProductsScreen extends StatefulWidget {
 }
 
 class _UserProductsScreenState extends State<UserProductsScreen> {
+  Future<void> _refreshProducts(BuildContext context) async {
+    await Provider.of<ProductsProvider>(context).fetchAndSetProducts();
+  }
+
   Future<void> _navigateAndDisplaySelection(BuildContext context) async {
     // Navigator.push returns a Future that completes after calling
     // Navigator.pop on the Selection Screen.
@@ -36,6 +40,23 @@ class _UserProductsScreenState extends State<UserProductsScreen> {
     ScaffoldMessenger.of(context)
       ..removeCurrentSnackBar()
       ..showSnackBar(SnackBar(content: Text('$result')));
+  }
+
+  Widget _renderUserProducts(productsData) {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: ListView.builder(
+        itemBuilder: (_, i) => Column(children: [
+          UserProductItem(
+            productsData.items[i].title,
+            productsData.items[i].imageUrl,
+            id: productsData.items[i].id,
+          ),
+          const Divider(),
+        ]),
+        itemCount: productsData.items.length,
+      ),
+    );
   }
 
   @override
@@ -61,19 +82,9 @@ class _UserProductsScreenState extends State<UserProductsScreen> {
           )
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8),
-        child: ListView.builder(
-          itemBuilder: (_, i) => Column(children: [
-            UserProductItem(
-              productsData.items[i].title,
-              productsData.items[i].imageUrl,
-              id: productsData.items[i].id,
-            ),
-            const Divider(),
-          ]),
-          itemCount: productsData.items.length,
-        ),
+      body: RefreshIndicator(
+        onRefresh: () => _refreshProducts(context),
+        child: _renderUserProducts(productsData),
       ),
     );
   }
