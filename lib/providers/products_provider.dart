@@ -76,21 +76,22 @@ class ProductsProvider with ChangeNotifier {
     final url = Uri.https(Apis.baseUrl, Apis.getProductsApi);
     try {
       final response = await http.get(url);
-      if (response.body.isNotEmpty) {
-        Map<String, dynamic> extractedData = json.decode(response.body);
-        final List<ProductProvider> loadedProducts = [];
-        extractedData.forEach((productId, productData) {
-          loadedProducts.add(ProductProvider(
-            id: productId,
-            description: productData?['description'],
-            title: productData?['title'],
-            price: productData?['price'],
-            imageUrl: productData?['imageUrl'],
-            isFavorite: productData?['isFavorite'],
-          ));
-        });
-        _items = loadedProducts;
+      Map<String, dynamic> extractedData = json.decode(response.body);
+      if (extractedData == null) {
+        return;
       }
+      final List<ProductProvider> loadedProducts = [];
+      extractedData.forEach((productId, productData) {
+        loadedProducts.add(ProductProvider(
+          id: productId,
+          description: productData?['description'],
+          title: productData?['title'],
+          price: productData?['price'],
+          imageUrl: productData?['imageUrl'],
+          isFavorite: productData?['isFavorite'],
+        ));
+      });
+      _items = loadedProducts;
     } catch (onError) {
       throw (onError);
     }

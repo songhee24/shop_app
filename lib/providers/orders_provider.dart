@@ -27,12 +27,38 @@ class OrdersProvider with ChangeNotifier {
   }
 
   Future<void> fetchAndSetOrders() async {
-    final url = Uri.https(Apis.baseUrl, Apis.addOrdersApi);
-    http.get(url);
+    final url = Uri.https(Apis.baseUrl, '/orders.json');
+    final response = await http.get(url);
+    final List<OrderItem> loadedOrders = [];
+    Map<String, dynamic> extractedData = json.decode(response.body);
+    if (extractedData == null) {
+      return;
+    }
+    extractedData.forEach((orderId, order) {
+      loadedOrders.add(
+        OrderItem(
+          id: orderId,
+          amount: order['amount'],
+          products: (order['products'] as List<dynamic>)
+              .map(
+                (e) => CartItem(
+                  id: e['id'],
+                  title: e['title'],
+                  quantity: e['quantity'],
+                  price: e['price'],
+                ),
+              )
+              .toList(),
+          dateTime: order['dateTime'],
+        ),
+      );
+    });
+    _orders = loadedOrders;
+    notifyListeners();
   }
 
   Future<void> addOrder(List<CartItem> cartProducts, double total) async {
-    final url = Uri.https(Apis.baseUrl, Apis.addOrdersApi);
+    final url = Uri.https(Apis.baseUrl, '/orders.json');
     final timestamp = DateTime.now();
     final response = await http.post(url,
         body: json.encode({
