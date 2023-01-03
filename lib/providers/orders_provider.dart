@@ -30,7 +30,7 @@ class OrdersProvider with ChangeNotifier {
     final url = Uri.https(Apis.baseUrl, '/orders.json');
     final response = await http.get(url);
     final List<OrderItem> loadedOrders = [];
-    Map<String, dynamic> extractedData = json.decode(response.body);
+    final extractedData = json.decode(response.body) as Map<String, dynamic>;
     if (extractedData == null) {
       return;
     }
@@ -49,7 +49,7 @@ class OrdersProvider with ChangeNotifier {
                 ),
               )
               .toList(),
-          dateTime: order['dateTime'],
+          dateTime: DateTime.parse(order['dateTime']),
         ),
       );
     });
