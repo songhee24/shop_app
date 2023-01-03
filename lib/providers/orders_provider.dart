@@ -49,7 +49,7 @@ class OrdersProvider with ChangeNotifier {
                 ),
               )
               .toList(),
-          dateTime: DateTime.parse(order['dateTime']),
+          dateTime: order['dateTime'],
         ),
       );
     });
