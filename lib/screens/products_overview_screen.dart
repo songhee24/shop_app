@@ -25,6 +25,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   bool _showOnlyFavorites = false;
   var _isInit = true;
   var _isLoading = false;
+  dynamic _isErrorOccurred;
 
   @override
   void initState() {
@@ -41,6 +42,9 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         setState(() {
           _isLoading = false;
         });
+      }).catchError((onError) {
+        _isErrorOccurred = onError;
+        _isLoading = false;
       });
     }
     _isInit = false;
@@ -101,13 +105,19 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
           )
         ],
       ),
-      body: _isLoading
-          ? const Center(
-              child: CircularProgressIndicator(),
+      body: _isErrorOccurred != null
+          ? Center(
+              child: Text(
+                _isErrorOccurred.toString(),
+              ),
             )
-          : ProductsGrid(
-              showFavorites: _showOnlyFavorites,
-            ),
+          : _isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ProductsGrid(
+                  showFavorites: _showOnlyFavorites,
+                ),
       drawer: AppDrawer(),
     );
   }
