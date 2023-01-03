@@ -144,7 +144,9 @@ class ProductsProvider with ChangeNotifier {
         _items.indexWhere((element) => element.id == productId);
     ProductProvider? existingProduct = _items[existingProductIndex];
     http.delete(url).then((response) {
-      if (response.statusCode >= 400) {}
+      if (response.statusCode >= 400) {
+        return Exception();
+      }
       existingProduct = null;
     }).catchError((onError) {
       _items.insert(existingProductIndex, existingProduct!);
