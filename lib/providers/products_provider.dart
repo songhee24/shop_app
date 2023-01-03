@@ -76,7 +76,7 @@ class ProductsProvider with ChangeNotifier {
     final url = Uri.https(Apis.baseUrl, Apis.getProductsApi);
     try {
       final response = await http.get(url);
-      if (!response.body.isNotEmpty) {
+      if (response.body.isNotEmpty) {
         Map<String, dynamic> extractedData = json.decode(response.body);
         final List<ProductProvider> loadedProducts = [];
         extractedData.forEach((productId, productData) {

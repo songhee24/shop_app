@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
+import 'package:shop_app/configs/Apis.dart';
 
 class ProductProvider with ChangeNotifier {
   final String id;
@@ -22,8 +26,21 @@ class ProductProvider with ChangeNotifier {
     required this.isFavorite,
   });
 
-  void toggleFavoriteStatus() {
+  Future<void> toggleFavoriteStatus() async {
+    final oldStatus = isFavorite;
     isFavorite = !isFavorite;
     notifyListeners();
+    final url = Uri.https(
+      Apis.baseUrl,
+      Apis.getFiledById(id),
+    );
+    try {
+      await http.patch(url,
+          body: json.encode({
+            'isFavorite': isFavorite,
+          }));
+    } catch (onError) {
+      isFavorite = oldStatus;
+    }
   }
 }
