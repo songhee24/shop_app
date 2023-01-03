@@ -72,8 +72,8 @@ class ProductsProvider with ChangeNotifier {
   }
 
   Future<void> fetchAndSetProducts() async {
-    final url = Uri.https(Apis.baseUrl, Apis.getProductsApi);
     try {
+      final url = Uri.https(Apis.baseUrl, Apis.getProductsApi);
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
       final List<ProductProvider> loadedProducts = [];

@@ -110,17 +110,19 @@ class _EditProductScreenState extends State<EditProductScreen> {
             .addProduct(_editedProduct)
             .then((_) {
           setState(() {
-            _isLoading = true;
+            _isLoading = false;
           });
           Navigator.of(context).pop('Product has been added!');
         });
       } else {
-        Provider.of<ProductsProvider>(context, listen: false)
-            .updateProduct(_editedProduct.id, _editedProduct);
-        setState(() {
-          _isLoading = true;
+        await Provider.of<ProductsProvider>(context, listen: false)
+            .updateProduct(_editedProduct.id, _editedProduct)
+            .then((_) {
+          setState(() {
+            _isLoading = false;
+          });
+          Navigator.of(context).pop('Product has been updated!');
         });
-        Navigator.of(context).pop('Product has been updated!');
       }
     } catch (onError) {
       print(onError);
