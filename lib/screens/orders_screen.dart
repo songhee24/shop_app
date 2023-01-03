@@ -29,7 +29,13 @@ class _OrdersScreenState extends State<OrdersScreen> {
           _isLoading = false;
         });
       } catch (onError) {
-        print(onError.toString());
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              onError.toString(),
+            ),
+          ),
+        );
         setState(() {
           _isLoading = false;
         });
