@@ -38,7 +38,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    OrdersProvider ordersProvider = Provider.of<OrdersProvider>(context);
+    // OrdersProvider ordersProvider = Provider.of<OrdersProvider>(context);
     return Scaffold(
       appBar: AppBar(
         leading: GoBackButton(
@@ -67,11 +67,13 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 ),
               );
             } else {
-              return ListView.builder(
-                itemBuilder: (ctx, i) => OrderItem(
-                  ordersProvider.orders[i],
+              return Consumer<OrdersProvider>(
+                builder: (ctx, orderData, child) => ListView.builder(
+                  itemBuilder: (ctx, i) => OrderItem(
+                    orderData.orders[i],
+                  ),
+                  itemCount: orderData.orders.length,
                 ),
-                itemCount: ordersProvider.orders.length,
               );
             }
             return Container();
