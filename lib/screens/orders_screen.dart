@@ -6,10 +6,26 @@ import '../widgets/go_back_button.dart';
 import '../widgets/order_item.dart';
 
 ///  Created by mac on 16/12/22.
-class OrdersScreen extends StatelessWidget {
+class OrdersScreen extends StatefulWidget {
   static const routeName = '/orders';
 
-  bool _isLoading = false;
+  @override
+  State<OrdersScreen> createState() => _OrdersScreenState();
+}
+
+class _OrdersScreenState extends State<OrdersScreen> {
+  late Future _ordersFuture;
+
+  Future _obtainOrdersFuture() {
+    return Provider.of<OrdersProvider>(context, listen: false)
+        .fetchAndSetOrders();
+  }
+
+  @override
+  void initState() {
+    _ordersFuture = _obtainOrdersFuture();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +40,7 @@ class OrdersScreen extends StatelessWidget {
         title: const Text('Your Orders'),
       ),
       body: FutureBuilder(
-        future: Provider.of<OrdersProvider>(context, listen: false)
-            .fetchAndSetOrders(),
+        future: _ordersFuture,
         builder: (context, dataSnapshot) {
           print(dataSnapshot.connectionState.toString());
           if (dataSnapshot.connectionState == ConnectionState.waiting) {
