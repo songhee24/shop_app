@@ -6,35 +6,10 @@ import '../widgets/go_back_button.dart';
 import '../widgets/order_item.dart';
 
 ///  Created by mac on 16/12/22.
-class OrdersScreen extends StatefulWidget {
+class OrdersScreen extends StatelessWidget {
   static const routeName = '/orders';
 
-  @override
-  State<OrdersScreen> createState() => _OrdersScreenState();
-}
-
-class _OrdersScreenState extends State<OrdersScreen> {
   bool _isLoading = false;
-
-  @override
-  void initState() {
-    // Future.delayed(Duration.zero).then((_) async {
-    // _isLoading = true;
-    // Provider.of<OrdersProvider>(context, listen: false)
-    //     .fetchAndSetOrders()
-    //     .then((value) {
-    //   setState(() {
-    //     _isLoading = false;
-    //   });
-    // }).catchError((onError) {
-
-    //   setState(() {
-    //     _isLoading = false;
-    //   });
-    // });
-    // });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
