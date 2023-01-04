@@ -18,29 +18,27 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
   @override
   void initState() {
-    Future.delayed(Duration.zero).then((_) async {
-      try {
-        setState(() {
-          _isLoading = true;
-        });
-        await Provider.of<OrdersProvider>(context, listen: false)
-            .fetchAndSetOrders();
-        setState(() {
-          _isLoading = false;
-        });
-      } catch (onError) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              onError.toString(),
-            ),
+    // Future.delayed(Duration.zero).then((_) async {
+    _isLoading = true;
+    Provider.of<OrdersProvider>(context, listen: false)
+        .fetchAndSetOrders()
+        .then((value) {
+      setState(() {
+        _isLoading = false;
+      });
+    }).catchError((onError) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            onError.toString(),
           ),
-        );
-        setState(() {
-          _isLoading = false;
-        });
-      }
+        ),
+      );
+      setState(() {
+        _isLoading = false;
+      });
     });
+    // });
     super.initState();
   }
 
