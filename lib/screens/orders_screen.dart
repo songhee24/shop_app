@@ -19,25 +19,19 @@ class _OrdersScreenState extends State<OrdersScreen> {
   @override
   void initState() {
     // Future.delayed(Duration.zero).then((_) async {
-    _isLoading = true;
-    Provider.of<OrdersProvider>(context, listen: false)
-        .fetchAndSetOrders()
-        .then((value) {
-      setState(() {
-        _isLoading = false;
-      });
-    }).catchError((onError) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            onError.toString(),
-          ),
-        ),
-      );
-      setState(() {
-        _isLoading = false;
-      });
-    });
+    // _isLoading = true;
+    // Provider.of<OrdersProvider>(context, listen: false)
+    //     .fetchAndSetOrders()
+    //     .then((value) {
+    //   setState(() {
+    //     _isLoading = false;
+    //   });
+    // }).catchError((onError) {
+
+    //   setState(() {
+    //     _isLoading = false;
+    //   });
+    // });
     // });
     super.initState();
   }
@@ -54,16 +48,36 @@ class _OrdersScreenState extends State<OrdersScreen> {
         ),
         title: const Text('Your Orders'),
       ),
-      body: _isLoading
-          ? Center(
+      body: FutureBuilder(
+        future: Provider.of<OrdersProvider>(context, listen: false)
+            .fetchAndSetOrders(),
+        builder: (context, dataSnapshot) {
+          print(dataSnapshot.connectionState.toString());
+          if (dataSnapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
               child: CircularProgressIndicator(),
-            )
-          : ListView.builder(
-              itemBuilder: (ctx, i) => OrderItem(
-                ordersProvider.orders[i],
-              ),
-              itemCount: ordersProvider.orders.length,
-            ),
+            );
+          } else {
+            if (dataSnapshot.error != null) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    dataSnapshot.error.toString(),
+                  ),
+                ),
+              );
+            } else {
+              return ListView.builder(
+                itemBuilder: (ctx, i) => OrderItem(
+                  ordersProvider.orders[i],
+                ),
+                itemCount: ordersProvider.orders.length,
+              );
+            }
+            return Container();
+          }
+        },
+      ),
     );
   }
 }
