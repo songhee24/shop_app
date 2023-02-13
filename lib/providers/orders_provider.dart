@@ -24,7 +24,7 @@ class OrdersProvider with ChangeNotifier {
 
   final String authToken;
 
-  OrdersProvider({this.authToken = '', this.orders = const []});
+  OrdersProvider({this.authToken = '', required this.orders});
 
   List<OrderItem> get allOrders {
     return [...orders];
