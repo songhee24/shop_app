@@ -4,6 +4,9 @@ class Apis {
 
   static const productsApi = '/products.json';
   static const addOrdersApi = '/orders.json';
+  static userAllFavorites(String userId) {
+    return '/userFavorites/$userId.json';
+  }
 
   static generateUserFavoritesApi(String userId, String id) {
     return '/userFavorites/$userId/$id.json';
