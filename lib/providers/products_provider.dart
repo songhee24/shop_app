@@ -45,6 +45,10 @@ class ProductsProvider with ChangeNotifier {
 
   // var _showFavoritesOnly = false;
 
+  final String authToken;
+
+  ProductsProvider({required this.authToken});
+
   List<ProductProvider> get items {
     // if (_showFavoritesOnly) {
     //   return _items.where((prodItem) => prodItem.isFavorite).toList();
@@ -73,7 +77,7 @@ class ProductsProvider with ChangeNotifier {
   }
 
   Future<void> fetchAndSetProducts() async {
-    final url = Uri.https(Apis.baseUrl, Apis.getProductsApi);
+    final url = Uri.https(Apis.baseUrl, Apis.generateProductsApi(authToken));
     try {
       final response = await http.get(url);
       Map<String, dynamic> extractedData = json.decode(response.body);
@@ -93,12 +97,12 @@ class ProductsProvider with ChangeNotifier {
       });
       _items = loadedProducts;
     } catch (onError) {
-      throw (onError);
+      rethrow;
     }
   }
 
   Future<void> addProduct(ProductProvider productProvider) async {
-    final url = Uri.https(Apis.baseUrl, Apis.addProductApi);
+    final url = Uri.https(Apis.baseUrl, Apis.generateProductsApi(authToken));
     try {
       final response = await http.post(url,
           body: json.encode({
@@ -118,7 +122,7 @@ class ProductsProvider with ChangeNotifier {
       _items.add(newProduct);
       notifyListeners();
     } catch (onError) {
-      throw onError;
+      rethrow;
     }
   }
 
@@ -138,7 +142,7 @@ class ProductsProvider with ChangeNotifier {
         notifyListeners();
       }
     } catch (onError) {
-      throw onError;
+      rethrow;
     }
   }
 
