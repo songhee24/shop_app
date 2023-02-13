@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/providers/auth_provider.dart';
 import 'package:shop_app/screens/auth_screen.dart';
+import 'package:shop_app/screens/products_overview_screen.dart';
 
 import 'providers/cart_provider.dart';
 import 'providers/orders_provider.dart';
@@ -54,7 +55,9 @@ class MyApp extends StatelessWidget {
                   color: Colors.lime[50],
                 )),
           ),
-          home: AuthScreen(),
+          home: authData.isAuthorized
+              ? const ProductsOverviewScreen()
+              : AuthScreen(),
           routes: {
             ProductDetailScreen.routeName: (context) =>
                 const ProductDetailScreen(),
