@@ -49,13 +49,16 @@ class _OrdersScreenState extends State<OrdersScreen> {
             );
           } else {
             if (dataSnapshot.error != null) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    dataSnapshot.error.toString(),
+              setState(() {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      dataSnapshot.error.toString(),
+                    ),
                   ),
-                ),
-              );
+                );
+              });
+              return Container();
             } else {
               return Consumer<OrdersProvider>(
                 builder: (ctx, orderData, child) => ListView.builder(
