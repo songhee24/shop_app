@@ -11,21 +11,25 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> _authenticate(
       String email, String password, String urlSegment) async {
-    final url = Uri.parse(
-        'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=AIzaSyB5I5btzUs9mIhNsuItFKv_q4dywTCFKlM');
-    final response = await http.post(
-      url,
-      body: jsonEncode({
-        'email': email,
-        'password': password,
-        'returnSecureToken': true,
-      }),
-    );
-    final responseData = jsonDecode(response.body);
-    print(responseData);
+    try {
+      final url = Uri.parse(
+          'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=AIzaSyB5I5btzUs9mIhNsuItFKv_q4dywTCFKlM');
+      final response = await http.post(
+        url,
+        body: jsonEncode({
+          'email': email,
+          'password': password,
+          'returnSecureToken': true,
+        }),
+      );
+      final responseData = jsonDecode(response.body);
+      print(responseData);
 
-    if (responseData['error'] != null) {
-      throw HttpException(responseData['error']['message']);
+      if (responseData['error'] != null) {
+        throw HttpException(responseData['error']['message']);
+      }
+    } catch (error) {
+      rethrow;
     }
   }
 
