@@ -127,7 +127,8 @@ class ProductsProvider with ChangeNotifier {
   }
 
   Future<void> updateProduct(String id, ProductProvider newProduct) async {
-    final url = Uri.https(Apis.baseUrl, Apis.getFiledById(id));
+    final url =
+        Uri.https(Apis.baseUrl, Apis.getFiledById(id), {'auth': '$authToken'});
     final prodIndex = items.indexWhere((element) => element.id == id);
     try {
       if (prodIndex >= 0) {
@@ -147,7 +148,8 @@ class ProductsProvider with ChangeNotifier {
   }
 
   Future<void> deleteProduct(String productId) async {
-    final url = Uri.https(Apis.baseUrl, Apis.getFiledById(productId));
+    final url = Uri.https(
+        Apis.baseUrl, Apis.getFiledById(productId), {'auth': authToken});
     final existingProductIndex =
         items.indexWhere((element) => element.id == productId);
     ProductProvider? existingProduct = items[existingProductIndex];
