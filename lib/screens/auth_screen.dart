@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -139,7 +140,7 @@ class _AuthCardState extends State<AuthCard> {
           _authData['password']!,
         );
       }
-    } catch (error) {
+    } on HttpException catch (error) {
       String errorMessage = 'Authentication failed';
       if ('$error'.contains('EMAIL_EXISTS')) {
         errorMessage = 'This email address is already in use';
@@ -151,6 +152,8 @@ class _AuthCardState extends State<AuthCard> {
         errorMessage = 'This is not a valid password';
       }
       _showErrorDialog(errorMessage);
+    } catch (error) {
+      print(error);
     } finally {
       setState(() {
         _isLoading = false;
