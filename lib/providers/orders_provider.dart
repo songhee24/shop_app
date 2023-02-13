@@ -20,10 +20,14 @@ class OrderItem {
 }
 
 class OrdersProvider with ChangeNotifier {
-  List<OrderItem> _orders = [];
+  List<OrderItem> orders = [];
 
-  List<OrderItem> get orders {
-    return [..._orders];
+  final String authToken;
+
+  OrdersProvider({this.authToken = '', this.orders = const []});
+
+  List<OrderItem> get allOrders {
+    return [...orders];
   }
 
   Future<void> fetchAndSetOrders() async {
@@ -53,7 +57,7 @@ class OrdersProvider with ChangeNotifier {
         ),
       );
     });
-    _orders = loadedOrders.reversed.toList();
+    orders = loadedOrders.reversed.toList();
     notifyListeners();
   }
 
@@ -73,7 +77,7 @@ class OrdersProvider with ChangeNotifier {
                   })
               .toList(),
         }));
-    _orders.insert(
+    orders.insert(
       0,
       OrderItem(
         id: json.decode(response.body)['name'],

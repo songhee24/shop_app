@@ -65,9 +65,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
               return Consumer<OrdersProvider>(
                 builder: (ctx, orderData, child) => ListView.builder(
                   itemBuilder: (ctx, i) => OrderItem(
-                    orderData.orders[i],
+                    orderData.allOrders[i],
                   ),
-                  itemCount: orderData.orders.length,
+                  itemCount: orderData.allOrders.length,
                 ),
               );
             }
