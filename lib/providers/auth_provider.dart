@@ -24,5 +24,11 @@ class AuthProvider with ChangeNotifier {
     print(jsonDecode(response.body));
   }
 
-  Future<void> signup(String email, String password) async {}
+  Future<void> signup(String email, String password) async {
+    _authenticate(email, password, 'signUp');
+  }
+
+  Future<void> signin(String email, String password) async {
+    _authenticate(email, password, 'signInWithPassword');
+  }
 }
