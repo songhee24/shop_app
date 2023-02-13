@@ -86,8 +86,10 @@ class ProductsProvider with ChangeNotifier {
       if (extractedData == null) {
         return;
       }
-      final favoriteResponse = Uri.https(
+      final favoriteUrl = Uri.https(
           Apis.baseUrl, Apis.userAllFavorites(userId), {'auth': authToken});
+      final favoriteResponse = await http.get(favoriteUrl);
+      final favoriteData = jsonDecode(favoriteResponse.body);
       final List<ProductProvider> loadedProducts = [];
       extractedData.forEach((productId, productData) {
         loadedProducts.add(ProductProvider(
@@ -96,7 +98,8 @@ class ProductsProvider with ChangeNotifier {
           title: productData?['title'],
           price: productData?['price'],
           imageUrl: productData?['imageUrl'],
-          isFavorite: productData?['isFavorite'],
+          isFavorite:
+              favoriteData == null ? false : favoriteData[productId] ?? false,
         ));
       });
       items = loadedProducts;
