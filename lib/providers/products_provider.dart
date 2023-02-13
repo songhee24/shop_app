@@ -77,7 +77,7 @@ class ProductsProvider with ChangeNotifier {
   }
 
   Future<void> fetchAndSetProducts() async {
-    final url = Uri.https(Apis.baseUrl, Apis.productsApi);
+    final url = Uri.https(Apis.baseUrl, Apis.productsApi, {'auth': authToken});
     try {
       final response = await http.get(url);
       Map<String, dynamic>? extractedData = json.decode(response.body);
@@ -102,7 +102,7 @@ class ProductsProvider with ChangeNotifier {
   }
 
   Future<void> addProduct(ProductProvider productProvider) async {
-    final url = Uri.https(Apis.baseUrl, Apis.productsApi);
+    final url = Uri.https(Apis.baseUrl, Apis.productsApi, {'auth': authToken});
     try {
       final response = await http.post(url,
           body: json.encode({

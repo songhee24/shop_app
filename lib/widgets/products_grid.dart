@@ -17,7 +17,6 @@ class ProductsGrid extends StatelessWidget {
     final productsData = Provider.of<ProductsProvider>(context);
     final products =
         showFavorites! ? productsData.favoriteItems : productsData.allItems;
-    print(products);
     return products.isEmpty
         ? const Center(
             child: Text('Not Found any Product add one !'),

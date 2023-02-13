@@ -45,6 +45,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
           _isLoading = false;
         });
       }).catchError((onError) {
+        print('products $onError');
         setState(() {
           _isLoading = false;
           _isErrorOccurred = onError;
