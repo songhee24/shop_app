@@ -25,10 +25,10 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> signup(String email, String password) async {
-    _authenticate(email, password, 'signUp');
+    return _authenticate(email, password, 'signUp');
   }
 
   Future<void> signin(String email, String password) async {
-    _authenticate(email, password, 'signInWithPassword');
+    return _authenticate(email, password, 'signInWithPassword');
   }
 }
