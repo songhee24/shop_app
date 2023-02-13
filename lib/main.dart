@@ -36,32 +36,35 @@ class MyApp extends StatelessWidget {
           create: (ctx) => OrdersProvider(),
         )
       ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          fontFamily: 'Lato',
-          colorScheme: ColorScheme.fromSwatch(
-            primarySwatch: Colors.purple,
-          ).copyWith(
-            secondary: Colors.deepOrange,
+      child: Consumer<AuthProvider>(
+        builder: (ctx, authData, _) => MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            fontFamily: 'Lato',
+            colorScheme: ColorScheme.fromSwatch(
+              primarySwatch: Colors.purple,
+            ).copyWith(
+              secondary: Colors.deepOrange,
+            ),
+            textTheme: TextTheme(
+                headline1: TextStyle(
+                  color: Colors.deepPurple[50],
+                ),
+                headline2: TextStyle(
+                  color: Colors.lime[50],
+                )),
           ),
-          textTheme: TextTheme(
-              headline1: TextStyle(
-                color: Colors.deepPurple[50],
-              ),
-              headline2: TextStyle(
-                color: Colors.lime[50],
-              )),
+          home: AuthScreen(),
+          routes: {
+            ProductDetailScreen.routeName: (context) =>
+                const ProductDetailScreen(),
+            CartScreen.routeName: (context) => const CartScreen(),
+            OrdersScreen.routeName: (context) => OrdersScreen(),
+            UserProductsScreen.routeName: (context) =>
+                const UserProductsScreen(),
+            EditProductScreen.routeName: (context) => const EditProductScreen(),
+          },
         ),
-        home: AuthScreen(),
-        routes: {
-          ProductDetailScreen.routeName: (context) =>
-              const ProductDetailScreen(),
-          CartScreen.routeName: (context) => const CartScreen(),
-          OrdersScreen.routeName: (context) => OrdersScreen(),
-          UserProductsScreen.routeName: (context) => const UserProductsScreen(),
-          EditProductScreen.routeName: (context) => const EditProductScreen(),
-        },
       ),
     );
   }
