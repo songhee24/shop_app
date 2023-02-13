@@ -2,7 +2,7 @@ class Apis {
   static const baseUrl =
       'flutter-http-299a3-default-rtdb.asia-southeast1.firebasedatabase.app';
 
-  static generateProductsApi(String token) => '/products?auth=$token.json';
+  static const productsApi = '/products';
   static const addOrdersApi = '/orders.json';
 
   static getFiledById(String id) {
