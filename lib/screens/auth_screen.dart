@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -101,28 +102,41 @@ class _AuthCardState extends State<AuthCard> {
   final _passwordController = TextEditingController();
 
   Future<void> _submit() async {
-    if (!_formKey.currentState!.validate()) {
-      // Invalid!
-      return;
+    try {
+      if (!_formKey.currentState!.validate()) {
+        // Invalid!
+        return;
+      }
+      _formKey.currentState?.save();
+      setState(() {
+        _isLoading = true;
+      });
+      if (_authMode == AuthMode.Login) {
+        await Provider.of<AuthProvider>(context, listen: false).signin(
+          _authData['email']!,
+          _authData['password']!,
+        );
+      } else {
+        await Provider.of<AuthProvider>(context, listen: false).signup(
+          _authData['email']!,
+          _authData['password']!,
+        );
+      }
+      setState(() {
+        _isLoading = false;
+      });
+    } on HttpException catch (error) {
+      String errorMessage = 'Authentication failed';
+      if ('$error'.contains('EMAIL_EXISTS')) {
+        errorMessage = 'This email address is already in use';
+      }
+      if ('$error'.contains('INVALID_EMAIL')) {
+        errorMessage = 'This is not a valid email address';
+      }
+    } catch (error) {
+      String errorMessage = 'Could not authenticate. Try it later';
+      throw error;
     }
-    _formKey.currentState?.save();
-    setState(() {
-      _isLoading = true;
-    });
-    if (_authMode == AuthMode.Login) {
-      await Provider.of<AuthProvider>(context, listen: false).signin(
-        _authData['email']!,
-        _authData['password']!,
-      );
-    } else {
-      await Provider.of<AuthProvider>(context, listen: false).signup(
-        _authData['email']!,
-        _authData['password']!,
-      );
-    }
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   void _switchAuthMode() {
