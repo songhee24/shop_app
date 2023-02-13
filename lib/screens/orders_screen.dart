@@ -21,6 +21,16 @@ class _OrdersScreenState extends State<OrdersScreen> {
         .fetchAndSetOrders();
   }
 
+  Future<void> _showSnackbar(dataSnapshot, context) async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          dataSnapshot.error.toString(),
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     _ordersFuture = _obtainOrdersFuture();
@@ -49,15 +59,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
             );
           } else {
             if (dataSnapshot.error != null) {
-              setState(() {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      dataSnapshot.error.toString(),
-                    ),
-                  ),
-                );
-              });
+              _showSnackbar(dataSnapshot, context);
               return Container();
             } else {
               return Consumer<OrdersProvider>(
