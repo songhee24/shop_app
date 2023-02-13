@@ -140,9 +140,6 @@ class _AuthCardState extends State<AuthCard> {
           _authData['password']!,
         );
       }
-      setState(() {
-        _isLoading = false;
-      });
     } on HttpException catch (error) {
       String errorMessage = 'Authentication failed';
       if ('$error'.contains('EMAIL_EXISTS')) {
@@ -154,9 +151,15 @@ class _AuthCardState extends State<AuthCard> {
       if ('$error'.contains('INVALID_PASSWORD')) {
         errorMessage = 'This is not a valid password';
       }
+      _showErrorDialog(errorMessage);
     } catch (error) {
       String errorMessage = 'Could not authenticate. Try it later';
+      _showErrorDialog(errorMessage);
       throw error;
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
