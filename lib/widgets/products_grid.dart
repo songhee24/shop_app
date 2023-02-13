@@ -16,7 +16,7 @@ class ProductsGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     final productsData = Provider.of<ProductsProvider>(context);
     final products =
-        showFavorites! ? productsData.favoriteItems : productsData.items;
+        showFavorites! ? productsData.favoriteItems : productsData.allItems;
     print(products);
     return products.isEmpty
         ? const Center(

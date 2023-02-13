@@ -31,7 +31,10 @@ class MyApp extends StatelessWidget {
           create: (BuildContext context) => ProductsProvider(),
           update: (BuildContext context, auth,
                   ProductsProvider? previousProducts) =>
-              ProductsProvider(),
+              ProductsProvider(
+            authToken: auth.token,
+            items: previousProducts == null ? [] : previousProducts.items,
+          ),
         ),
         ChangeNotifierProvider(
           create: (ctx) => CartProvider(),

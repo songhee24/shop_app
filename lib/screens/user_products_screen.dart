@@ -51,14 +51,14 @@ class _UserProductsScreenState extends State<UserProductsScreen> {
       child: ListView.builder(
         itemBuilder: (_, i) => Column(children: [
           UserProductItem(
-            productsData.items[i].title,
-            productsData.items[i].imageUrl,
-            id: productsData.items[i].id,
+            productsData.allItems[i].title,
+            productsData.allItems[i].imageUrl,
+            id: productsData.allItems[i].id,
             navigateToEdit: _navigateAndDisplaySelection,
           ),
           const Divider(),
         ]),
-        itemCount: productsData.items.length,
+        itemCount: productsData.allItems.length,
       ),
     );
   }

@@ -8,7 +8,7 @@ import 'package:shop_app/models/http_exception.dart';
 import 'product_provider.dart';
 
 class ProductsProvider with ChangeNotifier {
-  List<ProductProvider> _items = [
+  List<ProductProvider> items = [
     // ProductProvider(
     //     id: 'p1',
     //     title: 'Red Shirt',
@@ -45,19 +45,19 @@ class ProductsProvider with ChangeNotifier {
 
   // var _showFavoritesOnly = false;
 
-  final String authToken;
+  final String? authToken;
 
-  ProductsProvider({required this.authToken});
+  ProductsProvider({this.authToken = '', this.items = const []});
 
-  List<ProductProvider> get items {
+  List<ProductProvider> get allItems {
     // if (_showFavoritesOnly) {
     //   return _items.where((prodItem) => prodItem.isFavorite).toList();
     // }
-    return [..._items];
+    return [...items];
   }
 
   List<ProductProvider> get favoriteItems {
-    return _items.where((element) => element.isFavorite).toList();
+    return items.where((element) => element.isFavorite).toList();
   }
 
   // void showFavoritesOnly() {
@@ -71,16 +71,16 @@ class ProductsProvider with ChangeNotifier {
   // }
 
   ProductProvider findById(String id) {
-    return _items.firstWhere(
+    return items.firstWhere(
       (product) => product.id == id,
     );
   }
 
   Future<void> fetchAndSetProducts() async {
-    final url = Uri.https(Apis.baseUrl, Apis.generateProductsApi(authToken));
+    final url = Uri.https(Apis.baseUrl, Apis.generateProductsApi(authToken!));
     try {
       final response = await http.get(url);
-      Map<String, dynamic> extractedData = json.decode(response.body);
+      Map<String, dynamic>? extractedData = json.decode(response.body);
       if (extractedData == null) {
         return;
       }
@@ -95,14 +95,14 @@ class ProductsProvider with ChangeNotifier {
           isFavorite: productData?['isFavorite'],
         ));
       });
-      _items = loadedProducts;
+      items = loadedProducts;
     } catch (onError) {
       rethrow;
     }
   }
 
   Future<void> addProduct(ProductProvider productProvider) async {
-    final url = Uri.https(Apis.baseUrl, Apis.generateProductsApi(authToken));
+    final url = Uri.https(Apis.baseUrl, Apis.generateProductsApi(authToken!));
     try {
       final response = await http.post(url,
           body: json.encode({
@@ -119,7 +119,7 @@ class ProductsProvider with ChangeNotifier {
           price: productProvider.price,
           imageUrl: productProvider.imageUrl,
           isFavorite: productProvider.isFavorite);
-      _items.add(newProduct);
+      items.add(newProduct);
       notifyListeners();
     } catch (onError) {
       rethrow;
@@ -128,7 +128,7 @@ class ProductsProvider with ChangeNotifier {
 
   Future<void> updateProduct(String id, ProductProvider newProduct) async {
     final url = Uri.https(Apis.baseUrl, Apis.getFiledById(id));
-    final prodIndex = _items.indexWhere((element) => element.id == id);
+    final prodIndex = items.indexWhere((element) => element.id == id);
     try {
       if (prodIndex >= 0) {
         await http.patch(url,
@@ -138,7 +138,7 @@ class ProductsProvider with ChangeNotifier {
               'imageUrl': newProduct.imageUrl,
               'price': newProduct.price,
             }));
-        _items[prodIndex] = newProduct;
+        items[prodIndex] = newProduct;
         notifyListeners();
       }
     } catch (onError) {
@@ -149,14 +149,14 @@ class ProductsProvider with ChangeNotifier {
   Future<void> deleteProduct(String productId) async {
     final url = Uri.https(Apis.baseUrl, Apis.getFiledById(productId));
     final existingProductIndex =
-        _items.indexWhere((element) => element.id == productId);
-    ProductProvider? existingProduct = _items[existingProductIndex];
+        items.indexWhere((element) => element.id == productId);
+    ProductProvider? existingProduct = items[existingProductIndex];
     final response = await http.delete(url);
 
-    _items.removeAt(existingProductIndex);
+    items.removeAt(existingProductIndex);
     notifyListeners();
     if (response.statusCode >= 400) {
-      _items.insert(existingProductIndex, existingProduct!);
+      items.insert(existingProductIndex, existingProduct!);
       notifyListeners();
       throw HttpException('Could not delete product');
     }
