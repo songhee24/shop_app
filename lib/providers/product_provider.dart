@@ -31,14 +31,11 @@ class ProductProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> toggleFavoriteStatus() async {
+  Future<void> toggleFavoriteStatus(String token) async {
     final oldStatus = isFavorite;
     isFavorite = !isFavorite;
     notifyListeners();
-    final url = Uri.https(
-      Apis.baseUrl,
-      Apis.getFiledById(id),
-    );
+    final url = Uri.https(Apis.baseUrl, Apis.getFiledById(id), {'auth': token});
     try {
       final response = await http.patch(url,
           body: json.encode({
