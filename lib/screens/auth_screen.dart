@@ -130,8 +130,11 @@ class _AuthCardState extends State<AuthCard> {
       if ('$error'.contains('EMAIL_EXISTS')) {
         errorMessage = 'This email address is already in use';
       }
-      if ('$error'.contains('INVALID_EMAIL')) {
-        errorMessage = 'This is not a valid email address';
+      if ('$error'.contains('EMAIL_NOT_FOUND')) {
+        errorMessage = 'This is email address not found';
+      }
+      if ('$error'.contains('INVALID_PASSWORD')) {
+        errorMessage = 'This is not a valid password';
       }
     } catch (error) {
       String errorMessage = 'Could not authenticate. Try it later';
