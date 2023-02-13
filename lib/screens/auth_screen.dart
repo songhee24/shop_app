@@ -105,7 +105,7 @@ class _AuthCardState extends State<AuthCard> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('An Error Occured!'),
+        title: const Text('An Error Occurred!'),
         content: Text(message),
         actions: <Widget>[
           TextButton(
