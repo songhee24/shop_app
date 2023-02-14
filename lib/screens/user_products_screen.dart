@@ -19,7 +19,7 @@ class UserProductsScreen extends StatefulWidget {
 class _UserProductsScreenState extends State<UserProductsScreen> {
   Future<void> _refreshProducts(BuildContext context) async {
     await Provider.of<ProductsProvider>(context, listen: false)
-        .fetchAndSetProducts();
+        .fetchAndSetProducts(true);
   }
 
   Future<void> _navigateAndDisplaySelection(
@@ -45,20 +45,22 @@ class _UserProductsScreenState extends State<UserProductsScreen> {
       ..showSnackBar(SnackBar(content: Text('$result')));
   }
 
-  Widget _renderUserProducts(productsData) {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: ListView.builder(
-        itemBuilder: (_, i) => Column(children: [
-          UserProductItem(
-            productsData.allItems[i].title,
-            productsData.allItems[i].imageUrl,
-            id: productsData.allItems[i].id,
-            navigateToEdit: _navigateAndDisplaySelection,
-          ),
-          const Divider(),
-        ]),
-        itemCount: productsData.allItems.length,
+  Widget _renderUserProducts() {
+    return Consumer<ProductsProvider>(
+      builder: (ctx, productsData, _) => Padding(
+        padding: const EdgeInsets.all(8),
+        child: ListView.builder(
+          itemBuilder: (_, i) => Column(children: [
+            UserProductItem(
+              productsData.allItems[i].title,
+              productsData.allItems[i].imageUrl,
+              id: productsData.allItems[i].id,
+              navigateToEdit: _navigateAndDisplaySelection,
+            ),
+            const Divider(),
+          ]),
+          itemCount: productsData.allItems.length,
+        ),
       ),
     );
   }
@@ -86,9 +88,17 @@ class _UserProductsScreenState extends State<UserProductsScreen> {
           )
         ],
       ),
-      body: RefreshIndicator(
-        onRefresh: () => _refreshProducts(context),
-        child: _renderUserProducts(productsData),
+      body: FutureBuilder(
+        future: _refreshProducts(context),
+        builder: (ctx, snapshot) =>
+            snapshot.connectionState == ConnectionState.waiting
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : RefreshIndicator(
+                    onRefresh: () => _refreshProducts(context),
+                    child: _renderUserProducts(),
+                  ),
       ),
     );
   }
