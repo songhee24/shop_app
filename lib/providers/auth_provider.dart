@@ -104,10 +104,12 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  void logout() {
+  void logout() async {
     _userId = null;
     _token = null;
     _expiryDate = null;
     notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove('userData');
   }
 }
