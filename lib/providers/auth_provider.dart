@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/models/http_exception.dart';
 
 class AuthProvider with ChangeNotifier {
@@ -54,6 +56,13 @@ class AuthProvider with ChangeNotifier {
         ),
       );
       notifyListeners();
+      final prefs = await SharedPreferences.getInstance();
+      final userData = json.encode({
+        'token': _token,
+        'userId': _userId,
+        'expiryDate': _expiryDate?.toIso8601String() ?? '',
+      });
+      prefs.setString('userData', userData);
     } catch (error) {
       rethrow;
     }
