@@ -7,9 +7,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/models/http_exception.dart';
 
 class AuthProvider with ChangeNotifier {
-  late String? _token;
-  late DateTime? _expiryDate = DateTime.now();
-  late String? _userId;
+  String? _token;
+  DateTime? _expiryDate;
+  String? _userId;
 
   bool get isAuthorized {
     return token != null;
@@ -42,7 +42,6 @@ class AuthProvider with ChangeNotifier {
         }),
       );
       final responseData = jsonDecode(response.body);
-      print(responseData);
 
       if (responseData['error'] != null) {
         throw HttpException(responseData['error']['message']);
@@ -77,23 +76,32 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<bool> tryAutoLogin() async {
-    final prefs = await SharedPreferences.getInstance();
-    if (!prefs.containsKey('userData')) {
-      return false;
-    }
-    final extractedUserData =
-        json.decode(prefs.getString('userData')!) as Map<String, Object>;
-    final expiryDate =
-        DateTime.parse(extractedUserData['expiryDate'] as String);
-    if (expiryDate.isBefore(DateTime.now())) {
-      return false;
-    }
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      if (!prefs.containsKey('userData')) {
+        return false;
+      }
 
-    _token = extractedUserData['token'] as String?;
-    _expiryDate = extractedUserData['expiryDate'] as DateTime?;
-    _userId = extractedUserData['userId'] as String?;
-    notifyListeners();
-    return true;
+      final extractedUserData = json.decode(prefs.getString('userData') ?? '')
+          as Map<String, dynamic>;
+
+      final expiryDate =
+          DateTime.parse(extractedUserData['expiryDate'] as String);
+
+      if (expiryDate.isBefore(DateTime.now())) {
+        return false;
+      }
+
+      _token = extractedUserData['token'];
+      _expiryDate = DateTime.parse(extractedUserData['expiryDate']);
+      _userId = extractedUserData['userId'];
+
+      notifyListeners();
+      return true;
+    } catch (error) {
+      print(error);
+      return false;
+    }
   }
 
   void logout() {
