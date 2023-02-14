@@ -6,22 +6,22 @@ import 'package:shop_app/models/http_exception.dart';
 
 class AuthProvider with ChangeNotifier {
   late String? _token;
-  late DateTime _expiryDate = DateTime.now();
-  late String _userId;
+  late DateTime? _expiryDate = DateTime.now();
+  late String? _userId;
 
   bool get isAuthorized {
     return token != null;
   }
 
   String? get token {
-    if (_expiryDate.isAfter(DateTime.now()) && _token != null) {
+    if (_expiryDate!.isAfter(DateTime.now()) && _token != null) {
       return _token;
     }
     return null;
   }
 
   String get userId {
-    return _userId;
+    return _userId!;
   }
 
   Future<void> _authenticate(
@@ -63,5 +63,12 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> signin(String email, String password) async {
     return _authenticate(email, password, 'signInWithPassword');
+  }
+
+  void logout() {
+    _userId = null;
+    _token = null;
+    _expiryDate = null;
+    notifyListeners();
   }
 }
