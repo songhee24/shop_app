@@ -22,8 +22,8 @@ class OrderItem {
 class OrdersProvider with ChangeNotifier {
   List<OrderItem> orders = [];
 
-  final String authToken;
-  final String userId;
+  final String? authToken;
+  final String? userId;
 
   OrdersProvider({this.authToken = '', this.userId = '', required this.orders});
 

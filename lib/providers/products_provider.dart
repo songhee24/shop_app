@@ -46,10 +46,10 @@ class ProductsProvider with ChangeNotifier {
   // var _showFavoritesOnly = false;
 
   final String? authToken;
-  final String userId;
+  final String? userId;
 
   ProductsProvider(
-      {this.authToken = '', this.userId = '', this.items = const []});
+      {this.authToken = '', this.userId = '', required this.items});
 
   List<ProductProvider> get allItems {
     // if (_showFavoritesOnly) {
@@ -94,7 +94,7 @@ class ProductsProvider with ChangeNotifier {
         return;
       }
       final favoriteUrl = Uri.https(
-          Apis.baseUrl, Apis.userAllFavorites(userId), {'auth': authToken});
+          Apis.baseUrl, Apis.userAllFavorites(userId!), {'auth': authToken});
       final favoriteResponse = await http.get(favoriteUrl);
       final favoriteData = jsonDecode(favoriteResponse.body);
       final List<ProductProvider> loadedProducts = [];

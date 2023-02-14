@@ -14,8 +14,10 @@ class AuthProvider with ChangeNotifier {
   }
 
   String? get token {
-    if (_expiryDate!.isAfter(DateTime.now()) && _token != null) {
-      return _token;
+    if (_expiryDate != null) {
+      if (_expiryDate!.isAfter(DateTime.now()) && _token != null) {
+        return _token;
+      }
     }
     return null;
   }
