@@ -79,7 +79,8 @@ class ProductsProvider with ChangeNotifier {
   }
 
   Future<void> fetchAndSetProducts() async {
-    final url = Uri.https(Apis.baseUrl, Apis.productsApi, {'auth': authToken});
+    final url = Uri.https(Apis.baseUrl, Apis.productsApi,
+        {'auth': authToken, 'orderBy': '"creatorId"', 'equalTo': '"$userId"'});
     try {
       final response = await http.get(url);
       Map<String, dynamic>? extractedData = json.decode(response.body);
@@ -100,6 +101,7 @@ class ProductsProvider with ChangeNotifier {
           imageUrl: productData?['imageUrl'],
           isFavorite:
               favoriteData == null ? false : favoriteData[productId] ?? false,
+          userId: productData?['creatorId'],
         ));
       });
       items = loadedProducts;
@@ -117,6 +119,7 @@ class ProductsProvider with ChangeNotifier {
             'description': productProvider.description,
             'imageUrl': productProvider.imageUrl,
             'price': double.parse(productProvider.price.toString()),
+            'creatorId': userId,
           }));
       final newProduct = ProductProvider(
           id: json.decode(response.body)['name'],
@@ -124,7 +127,8 @@ class ProductsProvider with ChangeNotifier {
           title: productProvider.title,
           price: productProvider.price,
           imageUrl: productProvider.imageUrl,
-          isFavorite: productProvider.isFavorite);
+          isFavorite: productProvider.isFavorite,
+          userId: json.decode(response.body)['creatorId']);
       items.add(newProduct);
       notifyListeners();
     } catch (onError) {

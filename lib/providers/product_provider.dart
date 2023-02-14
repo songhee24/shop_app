@@ -10,6 +10,7 @@ class ProductProvider with ChangeNotifier {
   final String title;
   final double price;
   final String imageUrl;
+  final String userId;
   late bool isFavorite;
 
   @override
@@ -23,6 +24,7 @@ class ProductProvider with ChangeNotifier {
     required this.title,
     required this.price,
     required this.imageUrl,
+    this.userId = '',
     required this.isFavorite,
   });
 
