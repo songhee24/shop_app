@@ -31,7 +31,9 @@ class ProductItem extends StatelessWidget {
               ),
               onPressed: () async {
                 await product.toggleFavoriteStatus(
-                    authData.token!, authData.userId);
+                  authData.token!,
+                  authData.userId!,
+                );
               },
             ),
           ),
