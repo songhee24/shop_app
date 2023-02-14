@@ -49,6 +49,7 @@ class AppDrawer extends StatelessWidget {
               'Logout',
             ),
             onTap: () {
+              Navigator.of(context).pop();
               Provider.of<AuthProvider>(context, listen: false).logout();
             },
           ),
