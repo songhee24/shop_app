@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
               (BuildContext context, auth, OrdersProvider? previousOrders) =>
                   OrdersProvider(
             authToken: auth.token!,
+            userId: auth.userId,
             orders: previousOrders != null ? previousOrders.orders : [],
           ),
         )
