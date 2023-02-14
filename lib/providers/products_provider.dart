@@ -78,9 +78,15 @@ class ProductsProvider with ChangeNotifier {
     );
   }
 
-  Future<void> fetchAndSetProducts() async {
-    final url = Uri.https(Apis.baseUrl, Apis.productsApi,
-        {'auth': authToken, 'orderBy': '"creatorId"', 'equalTo': '"$userId"'});
+  Future<void> fetchAndSetProducts([bool filterByUser = false]) async {
+    Map<String, String?> params = {
+      'auth': authToken,
+    };
+    if (filterByUser) {
+      params.addAll({'orderBy': '"creatorId"', 'equalTo': '"$userId"'});
+    }
+
+    final url = Uri.https(Apis.baseUrl, Apis.productsApi, params);
     try {
       final response = await http.get(url);
       Map<String, dynamic>? extractedData = json.decode(response.body);
@@ -101,7 +107,7 @@ class ProductsProvider with ChangeNotifier {
           imageUrl: productData?['imageUrl'],
           isFavorite:
               favoriteData == null ? false : favoriteData[productId] ?? false,
-          userId: productData?['creatorId'],
+          userId: productData?['creatorId'] ?? '',
         ));
       });
       items = loadedProducts;
